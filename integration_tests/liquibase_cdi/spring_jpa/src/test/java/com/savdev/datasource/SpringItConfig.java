@@ -66,7 +66,8 @@ public class SpringItConfig {
   public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
     final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
     em.setDataSource(dataSource());
-    em.setPackagesToScan(new String[] { "com.savdev.datasource.entities", "com.savdev.datasource.repositories" });
+    //em.setPackagesToScan(new String[] { "com.savdev.datasource.entities", "com.savdev.datasource.repositories" });
+    em.setPackagesToScan("com.savdev.datasource");
     em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
     em.setJpaProperties(hibernateProperties());
     em.afterPropertiesSet();

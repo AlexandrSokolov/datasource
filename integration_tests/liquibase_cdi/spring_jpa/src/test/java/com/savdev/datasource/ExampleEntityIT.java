@@ -33,7 +33,7 @@ public class ExampleEntityIT {
   }
 
   @Test
-  public void testFindByNameIndexed() {
+  public void testFindById() {
     ExampleEntity example = new ExampleEntity();
     //example.setId(10);
     example.setName("test");
