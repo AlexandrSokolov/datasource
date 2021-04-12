@@ -42,6 +42,7 @@
     <module>deps</module>
     <module>commons_test</module>
     <module>schema/liquibase_cdi</module>
+    <module>integration_tests/liquibase_cdi/spring_jpa</module>
   </modules>
 
 </project>

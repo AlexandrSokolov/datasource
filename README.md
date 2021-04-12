@@ -3,7 +3,7 @@
 Project to illustrate datasource-related issues
 
 **Project features:**
-- [Schema Creation](schema/README.md)
+- [Schema creation, WildFly datasource and JPA configurations](schema/README.md)
 
 #### Connecting to sql docker container
 

@@ -21,6 +21,9 @@
     <snakeyaml.version>1.25</snakeyaml.version>
     <spring.data.jpa.version>2.2.7.RELEASE</spring.data.jpa.version>
 
+    <mysql-connector-java.version>5.1.49</mysql-connector-java.version>
+    <mysql-testcontainer.version>1.15.1</mysql-testcontainer.version>
+
     <!-- test frameworks -->
     <junit.version>4.12</junit.version>
     <mockito.version>1.9.5</mockito.version>
@@ -81,6 +84,7 @@
         <version>${spring.data.jpa.version}</version>
       </dependency>
 
+
       <!-- TEST START -->
       <dependency>
         <groupId>junit</groupId>
@@ -92,6 +96,37 @@
         <groupId>org.mockito</groupId>
         <artifactId>mockito-all</artifactId>
         <version>${mockito.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+
+      <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <version>${spring.data.jpa.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-jpa</artifactId>
+        <version>${spring.data.jpa.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+
+      <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${mysql-connector-java.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>mysql</artifactId>
+        <version>${mysql-testcontainer.version}</version>
         <scope>test</scope>
       </dependency>
       <!-- TEST END -->

@@ -4,9 +4,10 @@
 In real projects, they must be defined as `jar` and be part of another `war` file!!!
 
 - [Database creation](#11-db-creation)
-- [WildFly configuration with the Ansible scripts](#121-if-you-use-the-ansible-scriptshttpsgithubcomalexandrsokolovansible-projectstreemasterbm_app)
-- [WildFly configuration with CLI](#122-configure-a-datasource-with-jbosswildfly-using-cli)
-- [WildFly configuration with static configuration](#123-static-configuration-in-standalone-fullxml-file)
+- [WildFly configuration with the Ansible scripts](#21-if-you-use-the-ansible-scriptshttpsgithubcomalexandrsokolovansible-projectstreemasterbm_app)
+- [WildFly configuration with CLI](#22-configure-a-datasource-with-jbosswildfly-using-cli)
+- [WildFly configuration with static configuration](#23-static-configuration-in-standalone-fullxml-file)
+- [Configure JPA with `persistence.xml` JEE/CDI env](#3-configure-jpa-with-persistencexml)
 - [Possible issues](#issues)
 
 #### 1. Schema creation in JEE environments.
@@ -25,9 +26,9 @@ docker exec -it bm_my_sql sh -c "echo create database custom_db | mysql -uroot -
 docker exec -it bm_my_sql sh -c "echo show databases | mysql -uroot -p"
 ```
 
-#### 1.2 Configure the application to map the chosen jndi name to the database
+#### 2 Configure the application to map the chosen jndi name to the database
 
-##### 1.2.1 If you use the [Ansible scripts](https://github.com/AlexandrSokolov/ansible-projects/tree/master/bm_app)
+##### 2.1 If you use the [Ansible scripts](https://github.com/AlexandrSokolov/ansible-projects/tree/master/bm_app)
 
 If you Wildfly docker image is not built and a docker container is not running yet, run:
 
@@ -37,7 +38,7 @@ If a Wildfly docker container is already running, adopt it with:
 
 `recreateBmWfWithCustomDs.sh java:/customJndiDs`
 
-##### 1.2.2 Configure a datasource with JBoss/WildFly using CLI:
+##### 2.2 Configure a datasource with JBoss/WildFly using CLI:
 
 Suppose:
 - `bm_wf` is a docker container with WildFly 
@@ -59,7 +60,7 @@ $ docker exec -it bm_wf sh -c "/opt/jboss/wildfly/bin/jboss-cli.sh --connect --c
 }
 ```
 
-##### 1.2.3 Static configuration in `standalone-full.xml` file:
+##### 2.3 Static configuration in `standalone-full.xml` file:
 ```xml
 <datasource jta="true" jndi-name="java:/customJndiDs" pool-name="CustomDS_Pool" enabled="true" use-ccm="true" statistics-enabled="True">
   <connection-url>jdbc:mysql://bm_my_sql:3306/custom_db?useUnicode=true&amp;characterEncoding=utf8&amp;characterResultSets=utf8;serverTimezone=Europe/Berlin</connection-url>
@@ -94,6 +95,28 @@ $ docker exec -it bm_wf sh -c "/opt/jboss/wildfly/bin/jboss-cli.sh --connect --c
   </statement>
 </datasource>
 ```
+
+#### 3. Configure JPA with `persistence.xml`
+
+You need to include into `persistence.xml`:
+- jndi name, for instance `java:/customJndiDs`, used by Liquibase
+- persistence-unit name, for instance `custom-persistent-unit`, used to produce EntityManager
+- transaction-type=`JTA` for the managed CDI/JEE environment:
+
+```persistence.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="
+        http://xmlns.jcp.org/xml/ns/persistence
+        http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="custom-persistent-unit" transaction-type="JTA">
+    <jta-data-source>java:/customJndiDs</jta-data-source>
+  </persistence-unit>
+</persistence>
+```
+
+The `persistence.xml` must be located in `src/main/resources/META-INF/persistence.xml`.
 
 #### Issues:
 
