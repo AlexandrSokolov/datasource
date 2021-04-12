@@ -17,6 +17,10 @@
     <apache-commons-lang3.version>3.9</apache-commons-lang3.version>
     <log4j2.version>2.14.0</log4j2.version>
 
+    <liquibase.version>3.8.0</liquibase.version>
+    <snakeyaml.version>1.25</snakeyaml.version>
+    <spring.data.jpa.version>2.2.7.RELEASE</spring.data.jpa.version>
+
     <!-- test frameworks -->
     <junit.version>4.12</junit.version>
     <mockito.version>1.9.5</mockito.version>
@@ -51,6 +55,30 @@
         <groupId>org.apache.logging.log4j</groupId>
         <artifactId>log4j-to-slf4j</artifactId>
         <version>${log4j2.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.liquibase</groupId>
+        <artifactId>liquibase-core</artifactId>
+        <version>${liquibase.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.liquibase</groupId>
+        <artifactId>liquibase-cdi</artifactId>
+        <version>${liquibase.version}</version>
+      </dependency>
+      <!-- needed to parse yml by liquibase-->
+      <dependency>
+        <groupId>org.yaml</groupId>
+        <artifactId>snakeyaml</artifactId>
+        <version>${snakeyaml.version}</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
+      <dependency>
+        <groupId>org.springframework.data</groupId>
+        <artifactId>spring-data-jpa</artifactId>
+        <version>${spring.data.jpa.version}</version>
       </dependency>
 
       <!-- TEST START -->
