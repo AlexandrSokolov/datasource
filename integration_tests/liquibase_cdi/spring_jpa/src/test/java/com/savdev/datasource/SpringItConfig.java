@@ -7,7 +7,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.AbstractEnvironment;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.support.ResourcePropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -20,12 +22,15 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.stream.StreamSupport;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "com.savdev.datasource") //searches in sub-packages
-@PropertySource("hibernate.properties")
+@PropertySource(SpringItConfig.HIBERNATE_PROPERTIES)
 @EnableTransactionManagement
 public class SpringItConfig {
+
+  public static final String HIBERNATE_PROPERTIES = "hibernate.properties";
 
   public static MySQLContainer mysql = new MySQLContainer(
     DockerImageName.parse(MySQLContainer.NAME).withTag("5.7.22"));
@@ -45,10 +50,7 @@ public class SpringItConfig {
       .url(mysql.getJdbcUrl())
       .username(mysql.getUsername())
       .password(mysql.getPassword())
-      .driverClassName("com.mysql.jdbc.jdbc2.optional.MysqlXADataSource")
-      //.driverClassName("com.mysql.jdbc.Driver")
-      //.driverClassName("com.mysql.cj.jdbc.MysqlDataSource")
-      //.driverClassName("com.mysql.cj.jdbc.Driver")
+      .driverClassName("com.mysql.jdbc.Driver")
       .build();
   }
 
@@ -66,10 +68,9 @@ public class SpringItConfig {
   public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
     final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
     em.setDataSource(dataSource());
-    //em.setPackagesToScan(new String[] { "com.savdev.datasource.entities", "com.savdev.datasource.repositories" });
     em.setPackagesToScan("com.savdev.datasource");
     em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-    em.setJpaProperties(hibernateProperties());
+    em.setJpaProperties(asProperties(HIBERNATE_PROPERTIES));
     em.afterPropertiesSet();
     return em;
   }
@@ -81,17 +82,15 @@ public class SpringItConfig {
     return transactionManager;
   }
 
-  private Properties hibernateProperties() {
-
-    final Properties hibernateProperties = new Properties();
-
-    hibernateProperties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
-    hibernateProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
-    hibernateProperties.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-    hibernateProperties.setProperty("hibernate.format_sql", env.getProperty("hibernate.format_sql"));
-    hibernateProperties.setProperty("hibernate.use_sql_comments", env.getProperty("hibernate.use_sql_comments"));
-    hibernateProperties.setProperty("hibernate.id.new_generator_mappings", env.getProperty("hibernate.id.new_generator_mappings"));
-
-    return hibernateProperties;
+  private Properties asProperties(final String fileName) {
+    return StreamSupport.stream(
+      ((AbstractEnvironment) env).getPropertySources().spliterator(), false)
+      .filter(ps -> ps instanceof ResourcePropertySource)
+      .map(ps -> (ResourcePropertySource) ps)
+      .filter(rps -> rps.getName().contains(fileName))
+      .collect(
+        Properties::new,
+        (props, rps) -> props.putAll(rps.getSource()),
+        Properties::putAll);
   }
 }

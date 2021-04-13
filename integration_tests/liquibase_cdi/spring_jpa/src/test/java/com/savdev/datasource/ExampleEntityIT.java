@@ -12,13 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.sql.DataSource;
-import java.util.List;
+import java.util.Optional;
 
-//without DataJpaTest
 @RunWith(SpringRunner.class) //alternative is SpringJUnit4ClassRunner.class
 @ContextConfiguration(classes = { SpringItConfig.class })
 @Transactional
 public class ExampleEntityIT {
+
+  public static final long ENTITY_ID = 25L;
 
   @Autowired
   private DataSource dataSource;
@@ -33,17 +34,31 @@ public class ExampleEntityIT {
   }
 
   @Test
-  public void testFindById() {
-    ExampleEntity example = new ExampleEntity();
-    //example.setId(10);
-    example.setName("test");
+  public void saveWithEntityManagerAndFindById() {
+    Optional<ExampleEntity> found = exampleEntityRepository.findById(ENTITY_ID);
+    Assert.assertFalse(found.isPresent());
 
-    //entityExampleRepository.saveAndFlush(example);
+    ExampleEntity example = new ExampleEntity();
+    example.setId(ENTITY_ID);
+    example.setName("test");
     entityManager.persist(example);
     entityManager.flush();
 
-    List<ExampleEntity> found = exampleEntityRepository.findAll();
-    Assert.assertNotNull(found);
-    Assert.assertFalse(found.isEmpty());
+    found = exampleEntityRepository.findById(ENTITY_ID);
+    Assert.assertTrue(found.isPresent());
+  }
+
+  @Test
+  public void saveWithSpringRepositoryAndFindById() {
+    Optional<ExampleEntity> found = exampleEntityRepository.findById(ENTITY_ID);
+    Assert.assertFalse(found.isPresent());
+
+    ExampleEntity example = new ExampleEntity();
+    example.setId(ENTITY_ID);
+    example.setName("test");
+    exampleEntityRepository.saveAndFlush(example);
+
+    found = exampleEntityRepository.findById(ENTITY_ID);
+    Assert.assertTrue(found.isPresent());
   }
 }
