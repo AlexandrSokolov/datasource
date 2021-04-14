@@ -4,20 +4,13 @@ import com.savdev.datasource.entities.ExampleEntity;
 import com.savdev.datasource.repositories.ExampleEntityRepository;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 import java.util.Optional;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration(classes = { SpringItConfig.class })
-@Transactional
-public class ExampleEntityIT {
+public class ExampleEntityIT extends BaseItInitializer {
 
   public static final long ENTITY_ID = 25L;
 

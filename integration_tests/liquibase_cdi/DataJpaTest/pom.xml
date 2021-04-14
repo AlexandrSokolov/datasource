@@ -9,10 +9,10 @@
     <relativePath>../../../pom.xml</relativePath>
   </parent>
 
-  <artifactId>context-configuration</artifactId>
+  <artifactId>data-jpa-test</artifactId>
   <packaging>jar</packaging>
 
-  <name>IT with using of '@ContextConfiguration' and '@Configuration'.</name>
+  <name>IT with using of '@DataJpaTest'.</name>
 
   <dependencies>
     <dependency>

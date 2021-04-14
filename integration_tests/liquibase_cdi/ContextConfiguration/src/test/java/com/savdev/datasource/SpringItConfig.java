@@ -3,7 +3,6 @@ package com.savdev.datasource;
 import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -33,8 +32,10 @@ public class SpringItConfig {
 
   public static final String HIBERNATE_PROPERTIES = "hibernate.properties";
 
-  public static MySQLContainer mysql = new MySQLContainer(
-    DockerImageName.parse(MySQLContainer.NAME).withTag("5.7.22"));
+  public static MySQLContainer<?> mysql = new MySQLContainer<>(
+    DockerImageName
+      .parse(MySQLContainer.NAME)
+      .withTag("5.7.22"));
 
   static {
     mysql.start();
