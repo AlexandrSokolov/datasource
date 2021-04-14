@@ -9,10 +9,10 @@
     <relativePath>../../../pom.xml</relativePath>
   </parent>
 
-  <artifactId>liquibase-cdi-spring-it</artifactId>
-  <packaging>war</packaging>
+  <artifactId>liquibase-cdi-spring</artifactId>
+  <packaging>jar</packaging>
 
-  <name>IT with Liquibase/Spring for CDI/JEE environment.</name>
+  <name>Datasource project with Liquibase/Spring for CDI/JEE environment.</name>
 
   <dependencies>
     <dependency>
@@ -36,22 +36,5 @@
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-jpa</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-jpa</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.testcontainers</groupId>
-      <artifactId>mysql</artifactId>
-    </dependency>
   </dependencies>
-
 </project>
