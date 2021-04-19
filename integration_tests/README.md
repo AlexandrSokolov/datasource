@@ -5,6 +5,7 @@
 - [Spring Boot Reference Documentation](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)
 
 **Features:**
+- [Datasource project with Liquibase/Spring for CDI/JEE environment](liquibase_cdi/spring_jpa)
 - [Testing with `@DataJpaTest`](#1-testing-with-datajpatest)
 - [Populating test data](#2-populating-test-data)
 - [Transaction management](#3-transaction-management-with-spring-it)
