@@ -1,8 +1,6 @@
 package com.savdev.datasource;
 
 import liquibase.integration.spring.SpringLiquibase;
-import org.junit.ClassRule;
-import org.junit.runner.RunWith;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -14,20 +12,21 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
 import javax.sql.DataSource;
 
-@RunWith(SpringRunner.class) //only needed with junit 4
 @DataJpaTest
 @TestPropertySource(properties = {"spring.jpa.hibernate.ddl-auto=validate"})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ContextConfiguration(initializers = { BaseItInitializer.Initializer.class })
+@Testcontainers
 public class BaseItInitializer {
 
-  @ClassRule //Not necessary to start it
+  @Container
   public static MySQLContainer<?> mysql = new MySQLContainer<>(
     DockerImageName
       .parse(MySQLContainer.NAME)

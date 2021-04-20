@@ -21,12 +21,9 @@
     <snakeyaml.version>1.25</snakeyaml.version>
     <spring.data.jpa.version>2.2.7.RELEASE</spring.data.jpa.version>
 
+    <junit5.version>5.7.1</junit5.version>
+    <testcontainers.version>1.15.3</testcontainers.version>
     <mysql-connector-java.version>5.1.49</mysql-connector-java.version>
-    <mysql-testcontainer.version>1.15.1</mysql-testcontainer.version>
-
-    <!-- test frameworks -->
-    <junit.version>4.12</junit.version>
-    <mockito.version>1.9.5</mockito.version>
 
     <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
   </properties>
@@ -86,20 +83,6 @@
 
 
       <!-- TEST START -->
-      <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>${junit.version}</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.mockito</groupId>
-        <artifactId>mockito-all</artifactId>
-        <version>${mockito.version}</version>
-        <scope>test</scope>
-      </dependency>
-
-
       <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
       <dependency>
         <groupId>org.springframework.boot</groupId>
@@ -115,18 +98,27 @@
         <scope>test</scope>
       </dependency>
 
-
+      <!-- https://mvnrepository.com/artifact/org.junit/junit-bom -->
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>${junit5.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.testcontainers/testcontainers-bom -->
+      <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>testcontainers-bom</artifactId>
+        <version>${testcontainers.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
       <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
       <dependency>
         <groupId>mysql</groupId>
         <artifactId>mysql-connector-java</artifactId>
         <version>${mysql-connector-java.version}</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.testcontainers</groupId>
-        <artifactId>mysql</artifactId>
-        <version>${mysql-testcontainer.version}</version>
         <scope>test</scope>
       </dependency>
       <!-- TEST END -->

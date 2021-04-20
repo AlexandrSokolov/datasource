@@ -1,13 +1,5 @@
 ## Populating test data:
-@Test
-@BeforeEach
-@Sql("/scripts/insert.shared.examples.sql") //load initial data for all methods
-public void initEachTest() {
-ExampleEntity example = new ExampleEntity();
-example.setId(ENTITY_ID);
-example.setName("test");
-exampleEntityRepository.saveAndFlush(example); //additionally persist a single item for all methods
-}
+
 
 @Test
 @Sql("/scripts/insert.examples.sql") //additionally load items only for this method
@@ -60,8 +52,12 @@ So, native queries are prime candidates for integration tests
 
 
 #### Test containers
+
+- [Testcontainers](https://javadoc.io/static/org.testcontainers/junit-jupiter/1.15.3/org/testcontainers/junit/jupiter/Testcontainers.html)
+- [JUnit 5 Quickstart](https://www.testcontainers.org/quickstart/junit_5_quickstart/)
 - [Reuse Containers With Testcontainers for Fast Integration Tests](https://rieckpil.de/reuse-containers-with-testcontainers-for-fast-integration-tests/)
 - [Write Spring Boot Integration Tests With Testcontainers](https://rieckpil.de/howto-write-spring-boot-integration-tests-with-a-real-database/)
+- [testcontainers releases](https://github.com/testcontainers/testcontainers-java/releases)
 
 #### Testing jdbc
 -  [@Autowired private JdbcTemplate jdbcTemplate;](https://reflectoring.io/spring-boot-data-jpa-test/)
