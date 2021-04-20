@@ -1,21 +1,3 @@
-## Populating test data:
-
-
-@Test
-@Sql("/scripts/insert.examples.sql") //additionally load items only for this method
-public void initSingleTest() {
-List<ExampleEntity> initItems = exampleEntityRepository.findAll();
-Assert.assertNotNull(initItems);
-Assert.assertFalse(initItems.isEmpty());
-Assert.assertEquals(5, initItems.size());
-}
-
-- [Using Using Spring DBUnit](https://reflectoring.io/spring-boot-data-jpa-test/)
-- [With data.sql](https://reflectoring.io/spring-boot-data-jpa-test/)
-- [With TestEntityManager](TODO https://www.baeldung.com/spring-boot-testing)
-- [With @Sql](https://reflectoring.io/spring-boot-data-jpa-test/)
-- [With BeforeEach]
-
 #### Queries
 - Spring Data also has the concept of derived queries where the actual SQL query is derived from the method name:
 ```java

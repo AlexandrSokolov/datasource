@@ -6,32 +6,39 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.jdbc.Sql;
 
 import javax.persistence.EntityManager;
-import java.util.List;
-import java.util.Optional;
 
-public class PopulatingTestDataIT extends BaseItInitializer {
+public class PopulatingWithEntityManagerIT extends BaseInitializerIT {
 
   public static final long ENTITY_ID = 85L;
+  public static final long SHARED_ID = 95L;
 
   @Autowired
   private EntityManager entityManager;
   @Autowired
   private ExampleEntityRepository exampleEntityRepository;
 
-  @Test
   @BeforeEach
-  @Sql("/scripts/insert.shared.examples.sql") //load initial data for all methods
   public void initEachTestWithSharedData() {
-    System.out.println("fsd");
+    ExampleEntity example = new ExampleEntity();
+    example.setId(SHARED_ID);
+    example.setName("test");
+    entityManager.persist(example);
+    entityManager.flush();
   }
 
   @Test
   public void populateWithEntityManager() {
-    Optional<ExampleEntity> found = exampleEntityRepository.findById(ENTITY_ID);
-    Assertions.assertFalse(found.isPresent());
+    // 1 item - from `initEachTestWithSharedData` with `EntityManager` and `@BeforeEach`
+    Assertions.assertEquals(1,
+      exampleEntityRepository
+        .findAll()
+        .size());
+
+    Assertions.assertFalse(exampleEntityRepository
+      .findById(ENTITY_ID)
+      .isPresent());
 
     ExampleEntity example = new ExampleEntity();
     example.setId(ENTITY_ID);
@@ -39,15 +46,12 @@ public class PopulatingTestDataIT extends BaseItInitializer {
     entityManager.persist(example);
     entityManager.flush();
 
-    found = exampleEntityRepository.findById(ENTITY_ID);
-    Assertions.assertTrue(found.isPresent());
-  }
+    Assertions.assertTrue(exampleEntityRepository
+      .findById(ENTITY_ID)
+      .isPresent());
 
-  @Test
-  @Sql("/scripts/insert.examples.sql")
-  public void populateWithSqlScript() {
-    List<ExampleEntity> items = exampleEntityRepository.findAll();
-    Assertions.assertNotNull(items);
-    Assertions.assertEquals(2, items.size());
+    Assertions.assertEquals(2, exampleEntityRepository
+      .findAll()
+      .size());
   }
 }

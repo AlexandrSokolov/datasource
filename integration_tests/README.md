@@ -30,28 +30,31 @@ Cause default behaviour of `@DataJpaTest` is not suitable and additionally you m
 
 Then it makes sense to extract a base class with all required annotations and configurations and inherit it in other ITs.
 
-See [BaseItInitializer](liquibase_cdi/DataJpaTest/src/test/java/com/savdev/datasource/BaseItInitializer.java)
+See [BaseInitializerIT](liquibase_cdi/DataJpaTest/src/test/java/com/savdev/datasource/BaseInitializerIT.java)
 
 ##### 1.1. Test database choice
 
 1.1.1 By default it uses in-memory embedded database (like H2 database)
-1.1.2 To overwrite it and use a real database:
+1.1.2 To overwrite it and use a real database, running on container:
 
 - set:
-`@AutoConfigureTestDatabase(replace=AutoConfigureTestDatabase.Replace.NONE)`
+```
+@AutoConfigureTestDatabase(replace=AutoConfigureTestDatabase.Replace.NONE)
+@Testcontainers
+```
 - use a real database container:
 ```java
-  @ClassRule //Not necessary to start it
+  @Container
   public static MySQLContainer<?> mysql = new MySQLContainer<>(
     DockerImageName
-      .parse(MySQLContainer.NAME)
-      .withTag("5.7.22"));
+    .parse(MySQLContainer.NAME)
+    .withTag("5.7.22"));
 ```
 - Configure the application context initializer with:
 ```java
-@ContextConfiguration(initializers = { BaseItInitializer.Initializer.class })
+@ContextConfiguration(initializers = { BaseInitializerIT.Initializer.class })
 ```
-See [BaseItInitializer](liquibase_cdi/DataJpaTest/src/test/java/com/savdev/datasource/BaseItInitializer.java)
+See [BaseInitializerIT](liquibase_cdi/DataJpaTest/src/test/java/com/savdev/datasource/BaseInitializerIT.java)
 
 ##### 1.2. Schema creation:
 
@@ -92,6 +95,224 @@ Similar to `Liquibase` with the only exception add dependency on:
 `compile('org.flywaydb:flyway-core')`
 
 #### 2. Populating test data
+
+You can populate the database with:
+- [Sql statements](#21-perform-sql-statements-directly-per-classmethod)
+- [Sql files (DML)](#22-populate-test-data-from-sql-file)
+- [xml dataset, using DbUnit and Spring's `@DatabaseSetup`](#23-populate-with-xml-dataset-using-dbunit-and-springs-databasesetup)
+- [yml dataset, using DbUnit and `@DBRider`](#24-populate-with-yml-dataset-using-dbunit-and-dbrider)
+- [`EntityManager`](#25-populate-with-entitymanager)
+- [Spring Boot](#26-populate-with-spring-boot)
+
+##### 2.1 Perform sql statements directly per class/method:
+```java
+import org.springframework.test.context.jdbc.Sql;
+
+@Sql(statements = "create schema if not exists test")
+@Sql("/scripts/insert.shared.examples.sql")
+```
+##### 2.2 Populate test data from sql files
+
+See [PopulatingWithSqlIT](liquibase_cdi/DataJpaTest/src/test/java/com/savdev/datasource/PopulatingWithSqlIT.java) 
+
+2.2.1 On the class, for all methods in the test:
+```java
+import org.springframework.test.context.jdbc.Sql;
+
+@Sql("/scripts/insert.shared.examples.sql")
+public class PopulatingWithSqlIT {}
+```
+2.2.2 On the method:
+```java
+import org.springframework.test.context.jdbc.Sql;
+
+public class PopulatingTestDataIT {
+  
+  @Test
+  @Sql("/scripts/insert.examples.sql")
+  public void populateWithSqlScript() {}
+}
+```
+2.2.3 Merge scripts both from class and the method:
+
+[By default method-level declarations override class-level declarations](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/context/jdbc/Sql.html)
+This behavior can be configured via `@SqlMergeMode`:
+```java
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlMergeMode;
+
+@SqlMergeMode(SqlMergeMode.MergeMode.MERGE)
+@Sql("/scripts/insert.shared.examples.sql")
+public class PopulatingWithSqlIT {
+  
+  @Test
+  @Sql("/scripts/insert.examples.sql")
+  public void populateWithSqlScript() {}
+}
+```
+Notes: 
+- do not mix `@Sql` with `@BeforeEach` it does not work.
+- you can have several `@Sql` annotations applied.
+
+##### 2.3 Populate with xml dataset, using DbUnit and Spring's `@DatabaseSetup` 
+
+Note: does not support yml/yaml formats, only xml!
+
+See [PopulatingWithDbUnitAndDatabaseSetupIT](liquibase_cdi/DataJpaTest/src/test/java/com/savdev/datasource/PopulatingWithDbUnitAndDatabaseSetupIT.java)
+
+Dependency:
+```xml
+    <!-- https://mvnrepository.com/artifact/com.github.springtestdbunit/spring-test-dbunit -->
+    <dependency>
+      <groupId>com.github.springtestdbunit</groupId>
+      <artifactId>spring-test-dbunit</artifactId>
+      <version>1.3.0</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.dbunit/dbunit -->
+    <dependency>
+      <groupId>org.dbunit</groupId>
+      <artifactId>dbunit</artifactId>
+      <version>2.7.0</version>
+      <scope>test</scope>
+    </dependency>
+```
+Test:
+```java
+import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+
+@TestExecutionListeners({
+  DependencyInjectionTestExecutionListener.class,
+  TransactionDbUnitTestExecutionListener.class
+})
+public class PopulatingWithDbUnitAndDatabaseSetupIT extends BaseInitializerIT {
+
+  @Autowired
+  private ExampleEntityRepository exampleEntityRepository;
+
+  @Test
+  @DatabaseSetup("classpath:datasets/examples.xml")
+  public void populateWithDbUnitAndDatabaseSetup() {
+    List<ExampleEntity> items = exampleEntityRepository.findAll();
+    Assertions.assertNotNull(items);
+    Assertions.assertEquals(2, items.size());
+  }
+}
+```
+
+##### 2.4 Populate with yml dataset, using DbUnit and `@DBRider`
+
+Note: does not recognize `yaml` format, only `yml`
+
+See [PopulatingWithDbUnitAndDBRiderIT](liquibase_cdi/DataJpaTest/src/test/java/com/savdev/datasource/PopulatingWithDbUnitAndDBRiderIT.java)
+
+Maven dependency:
+```xml
+    <dependency>
+      <groupId>com.github.database-rider</groupId>
+      <artifactId>rider-junit5</artifactId>
+      <version>1.23.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.github.database-rider</groupId>
+      <artifactId>rider-spring</artifactId>
+      <version>1.23.0</version>
+      <scope>test</scope>
+    </dependency>
+```
+Test:
+```java
+import com.github.database.rider.core.api.configuration.DBUnit;
+import com.github.database.rider.core.api.configuration.Orthography;
+import com.github.database.rider.core.api.dataset.DataSet;
+import com.github.database.rider.spring.api.DBRider; //not com.github.database.rider.junit5.api.DBRider;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
+@DBRider
+@DBUnit(caseInsensitiveStrategy = Orthography.LOWERCASE)
+public class PopulatingWithDbUnitAndDBRiderIT extends BaseInitializerIT {
+
+  @Autowired
+  private ExampleEntityRepository exampleEntityRepository;
+
+  @Test
+  @DataSet("examples.yml") //only yml supports, but not `yaml`
+  public void populateWithDbUnitAndDBRider() {
+    List<ExampleEntity> items = exampleEntityRepository.findAll();
+    Assertions.assertNotNull(items);
+    Assertions.assertEquals(2, items.size());
+  }
+}
+```
+
+##### 2.5 Populate with `EntityManager`
+
+See [PopulatingWithEntityManagerIT](liquibase_cdi/DataJpaTest/src/test/java/com/savdev/datasource/PopulatingWithEntityManagerIT.java)
+
+```java
+public class PopulatingWithEntityManagerIT extends BaseInitializerIT {
+
+  public static final long ENTITY_ID = 85L;
+  public static final long SHARED_ID = 95L;
+
+  @Autowired
+  private EntityManager entityManager;
+  @Autowired
+  private ExampleEntityRepository exampleEntityRepository;
+
+  @BeforeEach
+  public void initEachTestWithSharedData() {
+    ExampleEntity example = new ExampleEntity();
+    example.setId(SHARED_ID);
+    example.setName("test");
+    entityManager.persist(example);
+    entityManager.flush();
+  }
+
+  @Test
+  public void populateWithEntityManager() {
+    // 1 item - from `initEachTestWithSharedData` with `EntityManager` and `@BeforeEach`
+    Assertions.assertEquals(1,
+      exampleEntityRepository
+        .findAll()
+        .size());
+
+    Assertions.assertFalse(exampleEntityRepository
+      .findById(ENTITY_ID)
+      .isPresent());
+
+    ExampleEntity example = new ExampleEntity();
+    example.setId(ENTITY_ID);
+    example.setName("test");
+    entityManager.persist(example);
+    entityManager.flush();
+
+    Assertions.assertTrue(exampleEntityRepository
+      .findById(ENTITY_ID)
+      .isPresent());
+
+    Assertions.assertEquals(2, exampleEntityRepository
+      .findAll()
+      .size());
+  }
+}
+```
+
+##### 2.6 Populate with Spring Boot 
+
+[Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto-initialize-a-database-using-spring-jdbc)
+can automatically create the schema (DDL scripts) of your DataSource and initialize it (DML scripts)
 
 #### 3. Transaction management with Spring IT
 

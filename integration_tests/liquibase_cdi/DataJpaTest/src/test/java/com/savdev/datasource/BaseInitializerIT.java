@@ -22,9 +22,9 @@ import javax.sql.DataSource;
 @DataJpaTest
 @TestPropertySource(properties = {"spring.jpa.hibernate.ddl-auto=validate"})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ContextConfiguration(initializers = { BaseItInitializer.Initializer.class })
+@ContextConfiguration(initializers = { BaseInitializerIT.Initializer.class })
 @Testcontainers
-public class BaseItInitializer {
+public class BaseInitializerIT {
 
   @Container
   public static MySQLContainer<?> mysql = new MySQLContainer<>(
