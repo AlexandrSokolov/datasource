@@ -31,7 +31,89 @@ It’s important to note that neither Hibernate nor Spring Data validate native 
 
 So, native queries are prime candidates for integration tests
 
+#### How to run only IT (all, for all modules, etc)
 
+```xml
+
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-maven-plugin</artifactId>
+    </plugin>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-failsafe-plugin</artifactId>
+      <version>3.0.0-M4</version>
+      <executions>
+        <execution>
+          <goals>
+            <goal>integration-test</goal>
+            <goal>verify</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
+  </plugins>
+</build>
+```
+
+#### Logging
+
+jpa/sql logging
+logging in containers (save logs on the permanennt folder)
+
+#### Test mysql containers configuration
+
+configuration mysql for the container
+connecting to the running container, without starting/stopping it in test
+
+#### Spring's `@DynamicPropertySource`
+
+Basic application integration test with JUnit 5 and Spring Boot > 2.2.6
+vs:
+Integration test with JUnit 5 and Spring Boot < 2.2.6
+
+https://rieckpil.de/howto-write-spring-boot-integration-tests-with-a-real-database/
+https://rieckpil.de/test-your-spring-boot-jpa-persistence-layer-with-datajpatest/
+
+#### Schema DDL
+
+tables creation, constraints module add during table creation, droppging, adding later
+jpa entity with all constraints inlcuded
+table adoption - adding, removing new fields
+renaming fields
+adopting field type, when it is possible
+
+#### Schema DDL entity with all types
+
+table with all sql types AND enums and datetime formats
+one entity per each set of types (entity with date-times)
+
+#### Id generation
+[uuid2] -> [org.hibernate.id.UUIDGenerator]
+[guid] -> [org.hibernate.id.GUIDGenerator]
+[uuid] -> [org.hibernate.id.UUIDHexGenerator]
+[uuid.hex] -> [org.hibernate.id.UUIDHexGenerator]
+[assigned] -> [org.hibernate.id.Assigned]
+[identity] -> [org.hibernate.id.IdentityGenerator]
+[select] -> [org.hibernate.id.SelectGenerator]
+[sequence] -> [org.hibernate.id.enhanced.SequenceStyleGenerator]
+[seqhilo] -> [org.hibernate.id.SequenceHiLoGenerator]
+[increment] -> [org.hibernate.id.IncrementGenerator]
+[foreign] -> [org.hibernate.id.ForeignGenerator]
+[sequence-identity] -> [org.hibernate.id.SequenceIdentityGenerator]
+[enhanced-sequence] -> [org.hibernate.id.enhanced.SequenceStyleGenerator]
+[enhanced-table] -> [org.hibernate.id.enhanced.TableGenerator]
+
+#### Update your generation project with:
+- integration test
+- with a single query type
+- with the best id generation strategy
+- entity with id, name and datetime
+- populating data
+
+#### open AssetMapping, explain and make it explicit, what is used FILE_NAME_PARAM vs COLUMN_FILE_NAME, and where
 
 #### Test containers
 
@@ -40,6 +122,11 @@ So, native queries are prime candidates for integration tests
 - [Reuse Containers With Testcontainers for Fast Integration Tests](https://rieckpil.de/reuse-containers-with-testcontainers-for-fast-integration-tests/)
 - [Write Spring Boot Integration Tests With Testcontainers](https://rieckpil.de/howto-write-spring-boot-integration-tests-with-a-real-database/)
 - [testcontainers releases](https://github.com/testcontainers/testcontainers-java/releases)
+
+#### persistence.xml features
+https://thorben-janssen.com/jpa-persistence-xml/
+https://vladmihalcea.com/jpa-persistence-xml/
+
 
 #### Testing jdbc
 -  [@Autowired private JdbcTemplate jdbcTemplate;](https://reflectoring.io/spring-boot-data-jpa-test/)
@@ -125,5 +212,21 @@ Spring transactions:
 - [Common Pitfalls of Declarative Transaction Management in Spring](https://blog.staynoob.cn/post/2019/02/common-pitfalls-of-declarative-transaction-management-in-spring/)
 - [CDI Integration](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpd.misc.cdi-integration)
 
+#### Spring vs jpa vs Hibernate annotations
+
+https://www.baeldung.com/spring-data-annotations
+
+#### Invoking stored procedures
+
+invoking a procedure: https://stackoverflow.com/questions/64624083/is-it-possible-use-spring-data-jpa-with-spring-data-jdbc
+
+#### triggering liquibase with spring only
+
+#### triggering liquibase with standalone application
+
 #### Using Flyway
 - [Using Flyway in IT with Spring @DataJpaTest](https://reflectoring.io/spring-boot-data-jpa-test/)
+
+#### Spring Data JPA Tutorial
+
+https://www.petrikainulainen.net/spring-data-jpa-tutorial
