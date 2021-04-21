@@ -1,4 +1,48 @@
 #### Queries
+- [JPQL – How to Define Queries in JPA and Hibernate](https://thorben-janssen.com/jpql/)
+- [Nativ queries](https://thorben-janssen.com/jpa-native-queries/)
+- [spring queries](https://thorben-janssen.com/spring-data-jpa-query-annotation/)
+- [Types of JPA Queries](https://www.baeldung.com/jpa-queries)
+- [Spring @Query JPQL](https://www.baeldung.com/spring-data-jpa-query)
+  [query parameters](https://www.baeldung.com/jpa-query-parameters)
+  inexed parameters
+  named parameters
+- [IS NULL](https://www.baeldung.com/spring-data-jpa-null-parameters)
+- [IN](https://www.baeldung.com/jpa-criteria-api-in-expressions)
+- [Spring @Query Nativ](https://www.baeldung.com/spring-data-jpa-query)
+- Optional in results
+- Collections in parameters
+- [LIKE Queries in Spring JPA Repositories](https://www.baeldung.com/spring-jpa-like-queries)
+- [Pagination](https://www.baeldung.com/spring-data-jpa-query)
+  [pagination](https://www.baeldung.com/jpa-pagination)
+- [CrudRepository, JpaRepository, and PagingAndSortingRepository](https://www.baeldung.com/spring-data-repositories)
+- [Modifyting with queries](https://www.baeldung.com/spring-data-jpa-query)
+  updates and inserts
+  [insert](https://www.baeldung.com/jpa-insert)
+- [Dynamic queries (JPA Criteria API)](https://www.baeldung.com/spring-data-jpa-query)
+  [Combining JPA And/Or Criteria Predicates](https://www.baeldung.com/jpa-and-or-criteria-predicates)
+  [Criteria](https://www.baeldung.com/spring-data-criteria-queries)
+- [Extending the Existing Repository](https://www.baeldung.com/spring-data-jpa-query)
+  [Spring Data Composable Repositories](https://www.baeldung.com/spring-data-composable-repositories)
+- [Constructing a JPA Query Between Unrelated Entities](https://www.baeldung.com/jpa-query-unrelated-entities)
+- [Queries with Aggregation Functions](https://www.baeldung.com/jpa-queries-custom-result-with-aggregation-functions)
+- [querydsl](https://www.baeldung.com/querydsl-with-jpa-tutorial)
+  [querydsl](https://www.baeldung.com/rest-api-search-language-spring-data-querydsl)
+- [JPA error](https://www.baeldung.com/jpa-error-java-lang-string-cannot-be-cast)
+- [SqlResultSetMapping](https://www.baeldung.com/jpa-sql-resultset-mapping)
+- [Batch Insert/Update with Hibernate/JPA](https://www.baeldung.com/jpa-hibernate-batch-insert-update)
+- [Spring Data JPA Repository Populators](https://www.baeldung.com/spring-data-jpa-repository-populators)
+- [dd](https://www.baeldung.com/spring-data-jpa-method-in-all-repositories)
+- [kk](https://www.baeldung.com/rest-api-search-language-spring-data-specifications)
+- [kk](https://www.baeldung.com/rest-search-language-spring-jpa-criteria)
+- [jpa query](https://www.objectdb.com/java/jpa/query)
+- [jpa](https://thorben-janssen.com/category/jpa/)
+- [repository-pattern](https://thorben-janssen.com/implementing-the-repository-pattern-with-jpa-and-hibernate/)
+- [thorben-janssen](https://thorben-janssen.com/tutorials/)
+- [Spring data](https://www.baeldung.com/category/persistence/spring-persistence/spring-data/)
+- [hibernate](https://vladmihalcea.com/tutorials/hibernate/)
+- [jpa 2.1](https://thorben-janssen.com/jpa-21-overview/)
+  
 - Spring Data also has the concept of derived queries where the actual SQL query is derived from the method name:
 ```java
 public interface OrderRepository extends JpaRepository<Order, Long> {
@@ -89,6 +133,7 @@ adopting field type, when it is possible
 
 table with all sql types AND enums and datetime formats
 one entity per each set of types (entity with date-times)
+[JPA 2.2 Support for Java 8 Date/Time Types](https://www.baeldung.com/jpa-java-time)
 
 #### Id generation
 [uuid2] -> [org.hibernate.id.UUIDGenerator]
@@ -107,6 +152,7 @@ one entity per each set of types (entity with date-times)
 [enhanced-table] -> [org.hibernate.id.enhanced.TableGenerator]
 
 #### Update your generation project with:
+- switch to junit 5
 - integration test
 - with a single query type
 - with the best id generation strategy
@@ -114,6 +160,8 @@ one entity per each set of types (entity with date-times)
 - populating data
 
 #### open AssetMapping, explain and make it explicit, what is used FILE_NAME_PARAM vs COLUMN_FILE_NAME, and where
+
+#### Testing with Arquillian, WildFly test container
 
 #### Test containers
 
@@ -127,11 +175,26 @@ one entity per each set of types (entity with date-times)
 https://thorben-janssen.com/jpa-persistence-xml/
 https://vladmihalcea.com/jpa-persistence-xml/
 
+#### Datasources configuration in WildFly
+
+2021-04-19 17:16:00,983 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-5) WFLYJCA0098: Bound non-transactional data source: java:/DseDS
+<datasource jta="false"
+vs
+2021-04-19 17:16:00,985 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-6) WFLYJCA0001: Bound data source [java:/MediaDS]
+<datasource jta="true"
+
+And other dasource configuration
+
+#### Monitoring DB and connections performance
+
+[Auditing with JPA, Hibernate, and Spring Data JPA](https://www.baeldung.com/database-auditing-jpa)
 
 #### Testing jdbc
 -  [@Autowired private JdbcTemplate jdbcTemplate;](https://reflectoring.io/spring-boot-data-jpa-test/)
 
-  
+#### Multiple databases support
+
+[Multiple databases](https://www.baeldung.com/spring-data-jpa-multiple-databases)
 
 #### Transactions Management in-depth
 JEE transaction:
@@ -227,6 +290,11 @@ invoking a procedure: https://stackoverflow.com/questions/64624083/is-it-possibl
 #### Using Flyway
 - [Using Flyway in IT with Spring @DataJpaTest](https://reflectoring.io/spring-boot-data-jpa-test/)
 
+#### Jpa vs hibernate vs Eclise
+
+[The Difference Between JPA, Hibernate and EclipseLink](https://www.baeldung.com/jpa-hibernate-difference)
+
 #### Spring Data JPA Tutorial
 
 https://www.petrikainulainen.net/spring-data-jpa-tutorial
+https://www.baeldung.com/tag/jpa/
