@@ -26,6 +26,38 @@ there is a possibility that you will overwrite the correct version already store
 #### 2. Query definition
 
 ##### 2.1 Define query on a Spring repository method (Spring specific, not JPA specification)
+
+Very clear and explicit approach. You define query on the method.
+
+JPA Entity definition does not contain any queries defined:
+```java
+@Entity
+@Table(name = JpqlOnRepository.Persistence.TABLE_NAME)
+public class JpqlOnRepository {
+
+  public interface Persistence {
+    String ENTITY_NAME = "JpqlOnRepository"; //same as entity
+  }
+}
+```
+Via Spring's `@Query` annotation define query on the method: 
+```java
+import org.springframework.data.jpa.repository.Query;
+...
+public interface JpqlOnRepositoryRepository extends JpaRepository<JpqlOnRepository, Long> {
+
+
+  @Query("SELECT e FROM " + JpqlOnRepository.Persistence.ENTITY_NAME + " e")
+  List<JpqlOnRepository> findAllByExplicitJpql();
+}
+```
+
+See: 
+
+[JPQL query defined on a Spring repository](spring_jpa/jpql_on_repository/src/main/java/com/savdev/datasource/repositories/JpqlOnRepositoryRepository.java)
+
+[Native query defined on a Spring repository](spring_jpa/native_on_repository/src/main/java/com/savdev/datasource/repositories/NativeOnRepositoryRepository.java)
+
 ##### 2.2 Define query on a JPA Entity to invoke it via Spring repository
 
 Query name must follow the following rule:
