@@ -8,7 +8,9 @@ When we work with queries we need to choose:
   TODO: in, like, less than, greater then
 - [Joining with JPQL]
 - [Ordering, sorting]
+  [ORDER BY](https://thorben-janssen.com/spring-data-jpa-query-annotation/)
 - [Setting a limit, pagination]
+  [pagination](https://thorben-janssen.com/spring-data-jpa-query-annotation/)
 - [Getting collection, list, set, optional]
 - [How a query for insertions/updates can be defined? Batch updates]
 - [How a query can be invoked?](#3-query-invocation)

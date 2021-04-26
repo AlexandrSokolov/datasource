@@ -1,25 +1,21 @@
 #### Queries
 - [JPQL – How to Define Queries in JPA and Hibernate](https://thorben-janssen.com/jpql/)
 - [Nativ queries](https://thorben-janssen.com/jpa-native-queries/)
-- [spring queries](https://thorben-janssen.com/spring-data-jpa-query-annotation/)
 - [Types of JPA Queries](https://www.baeldung.com/jpa-queries)
-- [Spring @Query JPQL](https://www.baeldung.com/spring-data-jpa-query)
-  [query parameters](https://www.baeldung.com/jpa-query-parameters)
-- [IS NULL](https://www.baeldung.com/spring-data-jpa-null-parameters)
-- [IN](https://www.baeldung.com/jpa-criteria-api-in-expressions)
+  The @NamedQuery annotation has to be grouped inside a @NamedQueries annotation if we're using Java before version 8. From Java 8 forward, we can simply repeat the @NamedQuery annotation at our Entity class.
 - [Spring @Query Nativ](https://www.baeldung.com/spring-data-jpa-query)
 - Optional in results
-- Collections in parameters
-- [LIKE Queries in Spring JPA Repositories](https://www.baeldung.com/spring-jpa-like-queries)
 - [Pagination](https://www.baeldung.com/spring-data-jpa-query)
   [pagination](https://www.baeldung.com/jpa-pagination)
 - [CrudRepository, JpaRepository, and PagingAndSortingRepository](https://www.baeldung.com/spring-data-repositories)
 - [Modifyting with queries](https://www.baeldung.com/spring-data-jpa-query)
   updates and inserts
+  [Modifying Queries](https://thorben-janssen.com/spring-data-jpa-query-annotation/)
   [insert](https://www.baeldung.com/jpa-insert)
 - [Dynamic queries (JPA Criteria API)](https://www.baeldung.com/spring-data-jpa-query)
   [Combining JPA And/Or Criteria Predicates](https://www.baeldung.com/jpa-and-or-criteria-predicates)
   [Criteria](https://www.baeldung.com/spring-data-criteria-queries)
+  [IN in criteria](https://www.baeldung.com/jpa-criteria-api-in-expressions)
 - [Extending the Existing Repository](https://www.baeldung.com/spring-data-jpa-query)
   [Spring Data Composable Repositories](https://www.baeldung.com/spring-data-composable-repositories)
 - [Constructing a JPA Query Between Unrelated Entities](https://www.baeldung.com/jpa-query-unrelated-entities)
