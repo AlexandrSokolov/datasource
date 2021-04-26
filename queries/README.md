@@ -3,7 +3,14 @@
 When we work with queries we need to choose:
 
 - [Type of queries](#1-types-of-queries)
-- [How a query can be defined?](#2-query-definition)
+- [How a query for selection can be defined?](#2-query-definition)
+- [Passing parameters] 
+  TODO: in, like, less than, greater then
+- [Joining with JPQL]
+- [Ordering, sorting]
+- [Setting a limit, pagination]
+- [Getting collection, list, set, optional]
+- [How a query for insertions/updates can be defined? Batch updates]
 - [How a query can be invoked?](#3-query-invocation)
 - [Modifying the resulting entity](#modifying-the-resulting-entity)
 
@@ -23,7 +30,7 @@ So it is important to ensure that all the necessary data required to fully const
 If you leave out a field from the query, or default it to some value and then modify the resulting entity, 
 there is a possibility that you will overwrite the correct version already stored in the database.
 
-#### 2. Query definition
+#### 2. Query definition for selection
 
 ##### 2.1 Define query on a Spring repository method (Spring specific, not JPA specification)
 
@@ -101,6 +108,11 @@ Note: it works this way both for JPQL and Native queries, see:
 
 The same as [query on a JPA Entity with Spring](#23-define-query-on-a-jpa-entity-to-invoke-it-via-entitymanager-without-spring),
 but without the requirement to a query name.
+
+#### 3. Passing parameters
+
+See also: 
+[Spring Query Creation](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation)
 
 #### 3. Query invocation
 

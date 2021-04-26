@@ -5,8 +5,6 @@
 - [Types of JPA Queries](https://www.baeldung.com/jpa-queries)
 - [Spring @Query JPQL](https://www.baeldung.com/spring-data-jpa-query)
   [query parameters](https://www.baeldung.com/jpa-query-parameters)
-  inexed parameters
-  named parameters
 - [IS NULL](https://www.baeldung.com/spring-data-jpa-null-parameters)
 - [IN](https://www.baeldung.com/jpa-criteria-api-in-expressions)
 - [Spring @Query Nativ](https://www.baeldung.com/spring-data-jpa-query)
@@ -129,11 +127,20 @@ table adoption - adding, removing new fields
 renaming fields
 adopting field type, when it is possible
 
+#### date time default triggers 
+See comments:
+https://stackoverflow.com/questions/168736/how-do-you-set-a-default-value-for-a-mysql-datetime-column
+
 #### Schema DDL entity with all types
+
+https://www.baeldung.com/jpa-java-time
 
 table with all sql types AND enums and datetime formats
 one entity per each set of types (entity with date-times)
 [JPA 2.2 Support for Java 8 Date/Time Types](https://www.baeldung.com/jpa-java-time)
+https://www.baeldung.com/spring-data-jpa-query-by-date
+
+[correct tests with dates](queries/spring_jpa/parameters_query_on_repository/src/test/java/com/savdev/datasource/ParametersJpqlQueryRepositoryTest.java)
 
 #### Id generation
 [uuid2] -> [org.hibernate.id.UUIDGenerator]
@@ -298,3 +305,4 @@ invoking a procedure: https://stackoverflow.com/questions/64624083/is-it-possibl
 
 https://www.petrikainulainen.net/spring-data-jpa-tutorial
 https://www.baeldung.com/tag/jpa/
+https://dzone.com/articles/persistence-layer-spring-data
