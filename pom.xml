@@ -49,6 +49,7 @@
     <module>queries/spring_jpa/native_on_repository</module>
     <module>queries/spring_jpa/native_on_entity</module>
     <module>queries/spring_jpa/parameters_query_on_repository</module>
+    <module>queries/spring_jpa/parameters_query_on_entity</module>
   </modules>
 
 </project>

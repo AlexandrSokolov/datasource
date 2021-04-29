@@ -1,11 +1,8 @@
 ## Queries
 
-When we work with queries we need to choose:
-
 - [Type of queries](#1-types-of-queries)
 - [How a query for selection can be defined?](#2-query-definition)
-- [Passing parameters] 
-  TODO: in, like, less than, greater then
+- [Passing parameters](#3-passing-parameters) 
 - [Joining with JPQL]
 - [Ordering, sorting]
   [ORDER BY](https://thorben-janssen.com/spring-data-jpa-query-annotation/)
@@ -73,6 +70,8 @@ Query name must follow the following rule:
 
 It **must start** with an entity name, then dot, then method name, used in a Spring repository:
 
+**Note:** since  JPA 2.2, you can use multiple `@NamedQuery` annotations without wrapping them by `@NamedQueries`
+
 ```java
 @NamedQueries({
   @NamedQuery(
@@ -113,10 +112,16 @@ but without the requirement to a query name.
 
 #### 3. Passing parameters
 
-See also: 
+In case a query is defined on a repository with Spring Data Jpa (recommended):
+[Passing parameters into a query, defined on a Spring repository](spring_jpa/parameters_query_on_repository)
+
+With Spring see also:
 [Spring Query Creation](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation)
 
-#### 3. Query invocation
+In case a query is defined on a JPA Entity **without** Spring Data Jpa:
+[Passing parameters into a query, defined on a JPA entity](spring_jpa/parameters_query_on_entity)
+
+#### Query invocation
 
 #### Modifying the resulting entity
 

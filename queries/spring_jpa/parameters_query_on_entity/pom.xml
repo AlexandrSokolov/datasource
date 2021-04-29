@@ -9,10 +9,10 @@
     <relativePath>../../../pom.xml</relativePath>
   </parent>
 
-  <artifactId>query-parameters-on-repository</artifactId>
+  <artifactId>query-parameters-on-entity</artifactId>
   <packaging>jar</packaging>
 
-  <name>Passing parameters into a query, defined on a Spring repository</name>
+  <name>Passing parameters into a query, defined on a JPA entity</name>
 
   <dependencies>
     <dependency>

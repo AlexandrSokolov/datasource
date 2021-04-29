@@ -1,13 +1,18 @@
 #### Queries
-- [JPQL – How to Define Queries in JPA and Hibernate](https://thorben-janssen.com/jpql/)
-- [Nativ queries](https://thorben-janssen.com/jpa-native-queries/)
 - [Types of JPA Queries](https://www.baeldung.com/jpa-queries)
-  The @NamedQuery annotation has to be grouped inside a @NamedQueries annotation if we're using Java before version 8. From Java 8 forward, we can simply repeat the @NamedQuery annotation at our Entity class.
-- [Spring @Query Nativ](https://www.baeldung.com/spring-data-jpa-query)
-- Optional in results
-- [Pagination](https://www.baeldung.com/spring-data-jpa-query)
+- [Joining](https://thorben-janssen.com/jpql)
+- [Grouping](https://thorben-janssen.com/jpql/)
+- [Projection – The SELECT clause](https://thorben-janssen.com/jpql)
+  [SQLResultSetMappings](https://thorben-janssen.com/jpa-native-queries/)
+  returning Optional
+- [Distinct, pagination, ordering](https://thorben-janssen.com/jpql)
+  [Pagination](https://www.baeldung.com/spring-data-jpa-query)
   [pagination](https://www.baeldung.com/jpa-pagination)
+- [Functions](https://thorben-janssen.com/jpql/)
+- [Subselects](https://thorben-janssen.com/jpql/)
 - [CrudRepository, JpaRepository, and PagingAndSortingRepository](https://www.baeldung.com/spring-data-repositories)
+
+
 - [Modifyting with queries](https://www.baeldung.com/spring-data-jpa-query)
   updates and inserts
   [Modifying Queries](https://thorben-janssen.com/spring-data-jpa-query-annotation/)
@@ -36,24 +41,11 @@
 - [Spring data](https://www.baeldung.com/category/persistence/spring-persistence/spring-data/)
 - [hibernate](https://vladmihalcea.com/tutorials/hibernate/)
 - [jpa 2.1](https://thorben-janssen.com/jpa-21-overview/)
+- jpa query hints: https://examples.javacodegeeks.com/enterprise-java/jpa-named-query-example/
+- [Polymorphism and Downcasting](https://thorben-janssen.com/jpql/)  
+- @org.hibernate.annotations.NamedQueries, timeouts and fetchSize
+  https://www.baeldung.com/hibernate-named-query
   
-- Spring Data also has the concept of derived queries where the actual SQL query is derived from the method name:
-```java
-public interface OrderRepository extends JpaRepository<Order, Long> {
-  List<Order> findAllByTrackingNumber(String trackingNumber);
-}
-```
-- inferred query
-  The first option is to create an inferred query:
-  `UserEntity findByName(String name);`
-  We don’t need to tell Spring Data what to do, since it automatically infers the SQL query from the name of the method name.
-- @Query annotaion
-  Having said this, it’s good practice to rename such methods to a shorter, more meaningful name 
-  and add a @Query annotation to provide a custom JPQL query.
-```java
-@Query("select u from UserEntity u where u.name = :name")
-UserEntity findByNameCustomQuery(@Param("name") String name);
-```
 Similar to inferred queries, we get a validity check for those JPQL queries for free.
 
 So, should we write tests for custom queries? The unsatisfying answer is that we have to decide for ourselves if the query is complex enough to require a test.
@@ -100,6 +92,7 @@ So, native queries are prime candidates for integration tests
 
 jpa/sql logging
 logging in containers (save logs on the permanennt folder)
+[Hibernate Logging Guide](https://thorben-janssen.com/hibernate-logging-guide/)
 
 #### Test mysql containers configuration
 
