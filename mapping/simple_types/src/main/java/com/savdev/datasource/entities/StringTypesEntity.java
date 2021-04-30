@@ -9,5 +9,5 @@ import javax.persistence.Table;
 public class StringTypesEntity {
 
   //@Id
-  private int id;
+  private Long id;
 }

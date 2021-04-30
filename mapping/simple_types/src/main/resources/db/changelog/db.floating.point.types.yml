@@ -1,0 +1,33 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 2
+      author: asokolov
+      changes:
+        - createTable:
+            tableName: floating_point_types
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: money
+                  # see https://github.com/liquibase/liquibase/issues/1190
+                  # type: currency
+                  type: decimal(15,4)
+              - column:
+                  name: float_field
+                  type: float
+              - column:
+                  name: double_field
+                  type: double
+              - column:
+                  name: decimal_field
+                  # default decimal have no values after comma
+                  type: decimal(15,4)
+              - column:
+                  name: decimal_numeric_field
+                  # default decimal have no values after comma
+                  type: numeric

@@ -9,5 +9,5 @@ import javax.persistence.Table;
 public class DateAndTimeTypesEntity {
 
   //@Id
-  private int id;
+  private Long id;
 }
