@@ -1,9 +1,9 @@
 ## Queries
 
 - [Type of queries](#1-types-of-queries)
-- [How a query for selection can be defined?](#2-query-definition)
+- [How a query for selection can be defined?](#2-named-query-definition-for-selection)
 - [Passing parameters](#3-passing-parameters) 
-- [Joining with JPQL]
+- [Joining entities](#4-joining-entities)
 - [Ordering, sorting]
   [ORDER BY](https://thorben-janssen.com/spring-data-jpa-query-annotation/)
 - [Setting a limit, pagination]
@@ -18,6 +18,19 @@
 1.1 JPQL Queries. Used JPQL language, based on the JPA entity model. JPA entity fields, but not column names are used:
 `SELECT a, b FROM Author a JOIN a.books b`
 
+  You have 2 options here:
+  - statically defined named queries (preferred option)
+  - dynamically defined queries:
+```java
+public UserEntity getUserByIdWithTypedQuery(Long id) {
+    TypedQuery<UserEntity> typedQuery
+      = getEntityManager().createQuery("SELECT u FROM UserEntity u WHERE u.id=:id", UserEntity.class);
+    typedQuery.setParameter("id", id);
+    return typedQuery.getSingleResult();
+}
+```
+
+
 1.2 Native queries. SQL is used. Database-vendor specific approach:
 ```SELECT id, firstName, lastName, email FROM employee```
 
@@ -29,7 +42,11 @@ So it is important to ensure that all the necessary data required to fully const
 If you leave out a field from the query, or default it to some value and then modify the resulting entity, 
 there is a possibility that you will overwrite the correct version already stored in the database.
 
-#### 2. Query definition for selection
+1.3 Criteria API Query
+
+See [Criteria API Query](#todo)
+
+#### 2. Named query definition for selection
 
 ##### 2.1 Define query on a Spring repository method (Spring specific, not JPA specification)
 
@@ -120,6 +137,26 @@ With Spring see also:
 
 In case a query is defined on a JPA Entity **without** Spring Data Jpa:
 [Passing parameters into a query, defined on a JPA entity](spring_jpa/parameters_query_on_entity)
+
+#### 4. Joining entities
+
+- [With `JOIN`](#41-joining-with-join-operator-preferred)
+- [With `WHERE` without `JOIN`](#42-joining-with-where-without-join-operator)
+
+##### 4.1 Inner Joins with `JOIN` operator:
+
+The syntax: `[INNER] JOIN <path_expression> [AS] <identifier>`
+
+The advantage of `JOIN` operator: 
+the join can be expressed in terms of the association itself, 
+and the query engine will automatically supply the necessary join criteria when it generates the SQL.
+
+
+Note: you can use either `JOIN` or `INNER JOIN` syntax.
+
+##### 4.2 Inner joining with `WHERE` without `JOIN` operator:
+
+##### 4.3 Joining with a path expression.
 
 #### Query invocation
 

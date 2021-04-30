@@ -1,6 +1,25 @@
+#### Mapping
+
+
+
 #### Queries
-- [Types of JPA Queries](https://www.baeldung.com/jpa-queries)
 - [Joining](https://thorben-janssen.com/jpql)
+  JP QL supports multiple join types, including 
+  inner and 
+  outer joins, 
+  as well as a technique called fetch joins for eagerly loading data associated to the result type 
+  of a query but not directly returned.
+  
+  ELECT p.number
+  FROM Employee e JOIN e.phones p
+  In the definition of path expressions earlier, it was noted that a path couldn’t continue from a state
+  field or collection association field. To work around this situation, the collection association field must
+  be joined in the FROM clause so that a new identification variable is created for the path, allowing it to
+  be the root for new path expressions.
+  
+  [How to join unrelated entities](https://thorben-janssen.com/how-to-join-unrelated-entities/)
+  [How to join unrelated entities](https://stackoverflow.com/questions/20473033/jpa-left-join-2-tables-without-association)
+
 - [Grouping](https://thorben-janssen.com/jpql/)
 - [Projection – The SELECT clause](https://thorben-janssen.com/jpql)
   [SQLResultSetMappings](https://thorben-janssen.com/jpa-native-queries/)

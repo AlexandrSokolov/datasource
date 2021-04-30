@@ -4,3 +4,5 @@
 - Where should queries be defined? Compare options.
 - Sql Injection with passing parameters.
 - Modifying the resulting entity
+- Support of `LIKE`, issue (jpa vs spring)
+- Issues with joins (urelated, returning the collection)
