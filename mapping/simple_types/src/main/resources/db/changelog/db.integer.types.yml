@@ -16,17 +16,14 @@ databaseChangeLog:
                   name: byte
                   type: tinyint
               - column:
-                  name: smallest_int
-                  type: tinyint
-              - column:
                   name: small_int
                   type: smallint
               - column:
-                  name: number1
-                  type: number
-              - column:
-                  name: number2
+                  name: number_int
                   type: int
               - column:
                   name: big_number
                   type: bigint
+              - column:
+                  name: number_big_int
+                  type: number

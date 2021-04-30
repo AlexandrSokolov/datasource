@@ -4,33 +4,35 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.math.BigInteger;
 
 @Entity
 @Table(name="integer_types")
 public class IntegerTypesEntity {
 
+  //liquibase type: bigint
   @Id
-  private Integer id;
+  private Long id;
 
   //liquibase type: tinyint
+  //`tinyint` not valid for java `Short`, only for `Byte`
   @Column(name="byte")
   private Byte byteField;
-
-  //liquibase type: tinyint
-  @Column(name="smallest_int")
-  private Short smallestInt;
 
   //liquibase type: smallint
   @Column(name="small_int")
   private Short smallInt;
 
-  //liquibase type: number
-  private Integer number1;
-
   //liquibase type: int
-  private Integer number2;
+  @Column(name="number_int")
+  private Integer numberInt;
 
   //liquibase type: bigint
   @Column(name="big_number")
   private Long bigNumber;
+
+  //liquibase type: number
+  //`number` not valid for java `Integer`, only for `BigInteger`
+  @Column(name="number_big_int")
+  private BigInteger numberAsNumber;
 }
