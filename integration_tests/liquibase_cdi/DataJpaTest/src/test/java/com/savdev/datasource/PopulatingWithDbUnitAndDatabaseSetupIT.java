@@ -17,7 +17,7 @@ import java.util.List;
   DependencyInjectionTestExecutionListener.class,
   TransactionDbUnitTestExecutionListener.class
 })
-public class PopulatingWithDbUnitAndDatabaseSetupIT extends BaseInitializerIT {
+public class PopulatingWithDbUnitAndDatabaseSetupIT extends MySqlLiquibaseBaseIT {
 
   @Autowired
   private ExampleEntityRepository exampleEntityRepository;

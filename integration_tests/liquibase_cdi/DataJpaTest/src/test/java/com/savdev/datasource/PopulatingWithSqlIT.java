@@ -12,7 +12,7 @@ import java.util.List;
 
 @SqlMergeMode(SqlMergeMode.MergeMode.MERGE)
 @Sql("/scripts/insert.shared.examples.sql")
-public class PopulatingWithSqlIT extends BaseInitializerIT {
+public class PopulatingWithSqlIT extends MySqlLiquibaseBaseIT {
 
   @Autowired
   private ExampleEntityRepository exampleEntityRepository;

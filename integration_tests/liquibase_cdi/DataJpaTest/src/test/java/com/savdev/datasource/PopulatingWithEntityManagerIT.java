@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
 
-public class PopulatingWithEntityManagerIT extends BaseInitializerIT {
+public class PopulatingWithEntityManagerIT extends MySqlLiquibaseBaseIT {
 
   public static final long ENTITY_ID = 85L;
   public static final long SHARED_ID = 95L;

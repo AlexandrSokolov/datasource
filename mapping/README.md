@@ -1,5 +1,6 @@
 
 - [Accessing Entity State](#1-accessing-entity-state)
+- [Simple Types Mapping](#2-simple-types-mapping)
 
 ### 1 Accessing Entity State
 
@@ -129,3 +130,19 @@ The JPA would provide you with a 3 columns table:
 - id 
 - phone_num (using `phoneNum` field)
 - custom_phone (using `@Column(name="custom_phone")` on getter)
+
+### 2 Simple Types Mapping
+
+##### 2.1 Primitive types vs wrapper types.
+
+**Use wrappers all the time!**
+
+- If they are nullable in the database, then use wrappers. 
+- If they are not nullable, and you use wrappers, 
+  then you'll get an exception if you try and insert a null into the database.
+  **Having an inconsistent non-null value in a property is worse than NullPointerException**, 
+  as the lurking bug is harder to track: more time will pass since the code is written until a problem is detected.
+- If your data model doesn't dictate it, then go for a convention, use wrappers all the time. 
+  That way people don't have to think, or decide that a value of 0 means null.
+  
+See also: [Using wrapper or primitive types in the mapping](https://stackoverflow.com/questions/7506802/using-wrapper-integer-class-or-int-primitive-in-hibernate-mapping)

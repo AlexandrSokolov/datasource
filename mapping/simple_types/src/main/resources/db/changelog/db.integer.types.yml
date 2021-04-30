@@ -1,0 +1,32 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 1
+      author: asokolov
+      changes:
+        - createTable:
+            tableName: integer_types
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: byte
+                  type: tinyint
+              - column:
+                  name: smallest_int
+                  type: tinyint
+              - column:
+                  name: small_int
+                  type: smallint
+              - column:
+                  name: number1
+                  type: number
+              - column:
+                  name: number2
+                  type: int
+              - column:
+                  name: big_number
+                  type: bigint

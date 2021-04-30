@@ -12,9 +12,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
+import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
 import javax.sql.DataSource;
@@ -22,9 +22,9 @@ import javax.sql.DataSource;
 @DataJpaTest
 @TestPropertySource(properties = {"spring.jpa.hibernate.ddl-auto=validate"})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ContextConfiguration(initializers = { BaseInitializerIT.Initializer.class })
+@ContextConfiguration(initializers = { MySqlLiquibaseBaseIT.Initializer.class })
 @Testcontainers
-public class BaseInitializerIT {
+public class MySqlLiquibaseBaseIT {
 
   @Container
   public static MySQLContainer<?> mysql = new MySQLContainer<>(

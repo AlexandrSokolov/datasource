@@ -10,7 +10,7 @@ import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 import java.util.Optional;
 
-public class ExampleEntityIT extends BaseInitializerIT {
+public class ExampleEntityIT extends MySqlLiquibaseBaseIT {
 
   public static final long ENTITY_ID = 25L;
 

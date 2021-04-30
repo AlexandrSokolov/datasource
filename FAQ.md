@@ -44,7 +44,8 @@ public class MixedAccess {
   protected String getPhoneNumberForDb() {}
 }
 ```
-
+- [primitive vs wrappers in the mapping?](mapping/README.md#21-primitive-types-vs-wrapper-types)
+  
 - Types of queries
 - Possible issues with SQL queries.
 - Where should queries be defined? Compare options.

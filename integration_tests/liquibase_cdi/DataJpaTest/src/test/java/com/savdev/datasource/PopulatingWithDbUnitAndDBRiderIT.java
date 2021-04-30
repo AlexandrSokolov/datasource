@@ -14,7 +14,7 @@ import java.util.List;
 
 @DBRider
 @DBUnit(caseInsensitiveStrategy = Orthography.LOWERCASE)
-public class PopulatingWithDbUnitAndDBRiderIT extends BaseInitializerIT {
+public class PopulatingWithDbUnitAndDBRiderIT extends MySqlLiquibaseBaseIT {
 
   @Autowired
   private ExampleEntityRepository exampleEntityRepository;
