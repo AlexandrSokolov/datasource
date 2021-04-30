@@ -44,6 +44,7 @@
     <module>integration_tests/liquibase_cdi/spring_jpa</module>
     <module>integration_tests/liquibase_cdi/DataJpaTest</module>
     <module>integration_tests/liquibase_cdi/ContextConfiguration</module>
+    <module>mapping/accessing_entity_state</module>
     <module>queries/spring_jpa/jpql_on_repository</module>
     <module>queries/spring_jpa/jpql_on_entity</module>
     <module>queries/spring_jpa/native_on_repository</module>

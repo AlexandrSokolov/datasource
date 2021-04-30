@@ -1,6 +1,9 @@
 #### Mapping
 
-
+[FetchTypes](https://thorben-janssen.com/entity-mappings-introduction-jpa-fetchtypes/)
+[equals() and hashCode() with Hibernate](https://thorben-janssen.com/ultimate-guide-to-implementing-equals-and-hashcode-with-hibernate/)
+[inheritance](https://thorben-janssen.com/complete-guide-inheritance-strategies-jpa-hibernate/)
+utility methods, `No need to mark utility methods as @Transient`
 
 #### Queries
 - [Joining](https://thorben-janssen.com/jpql)
