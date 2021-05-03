@@ -6,5 +6,8 @@ databaseChangeLog:
   - include:
       file: db/changelog/db.floating.point.types.yml
 
+  - include:
+      file: db/changelog/db.string.types.yml
+
 
 

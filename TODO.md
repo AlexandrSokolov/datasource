@@ -1,9 +1,25 @@
 #### Mapping
 
+See also: 
+[Hibernate types](https://vladmihalcea.com/a-beginners-guide-to-hibernate-types/)
+[Data types mapping in Liquibase](https://dba-presents.com/index.php/liquibase/216-liquibase-3-6-x-data-types-mapping-table)
+
+- String types
+- [Date time types](https://www.w3schools.com/java/java_date.asp)
+- [Enums](https://dev.mysql.com/doc/refman/8.0/en/enum.html)
+- [Set types](https://dev.mysql.com/doc/refman/8.0/en/set.html)
+- Files
+- Lazy
+- Transient state
 [FetchTypes](https://thorben-janssen.com/entity-mappings-introduction-jpa-fetchtypes/)
 [equals() and hashCode() with Hibernate](https://thorben-janssen.com/ultimate-guide-to-implementing-equals-and-hashcode-with-hibernate/)
 [inheritance](https://thorben-janssen.com/complete-guide-inheritance-strategies-jpa-hibernate/)
 utility methods, `No need to mark utility methods as @Transient`
+
+[Hibernate Validator](https://docs.jboss.org/hibernate/validator/3.1/reference/en/html_single/)
+
+- change schema validation for a single field, without `columnDefinition`: 
+  see [Hibernate database specific columnDefinition values](https://stackoverflow.com/questions/1944660/hibernate-database-specific-columndefinition-values)
 
 #### Queries
 - [Joining](https://thorben-janssen.com/jpql)
@@ -121,6 +137,18 @@ logging in containers (save logs on the permanennt folder)
 configuration mysql for the container
 connecting to the running container, without starting/stopping it in test
 
+updating to use only: `TLSv1.2`:
+mysql> SHOW GLOBAL VARIABLES LIKE 'tls_version';
++---------------+-----------------------+
+| Variable_name | Value                 |
++---------------+-----------------------+
+| tls_version   | TLSv1,TLSv1.1,TLSv1.2 |
++---------------+-----------------------+
+1 row in set (0.00 sec)
+
+see also: /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/java.security
+https://stackoverflow.com/questions/38205947/sslhandshakeexception-no-appropriate-protocol
+
 #### Spring's `@DynamicPropertySource`
 
 Basic application integration test with JUnit 5 and Spring Boot > 2.2.6
@@ -176,6 +204,14 @@ https://www.baeldung.com/spring-data-jpa-query-by-date
 - with the best id generation strategy
 - entity with id, name and datetime
 - populating data
+
+#### hibernate custom validation:
+
+https://docs.jboss.org/hibernate/validator/5.1/reference/en-US/html/validator-customconstraints.html
+https://docs.jboss.org/hibernate/validator/5.1/reference/en-US/html/index.html
+https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#preface
+https://stackoverflow.com/questions/40482252/validation-of-a-date-with-hibernate
+https://docs.jboss.org/ejb3/app-server/HibernateAnnotations/api/org/hibernate/validator/package-summary.html
 
 #### open AssetMapping, explain and make it explicit, what is used FILE_NAME_PARAM vs COLUMN_FILE_NAME, and where
 
