@@ -9,5 +9,8 @@ databaseChangeLog:
   - include:
       file: db/changelog/db.string.types.yml
 
+  - include:
+      file: db/changelog/db.date.and.time.types.yml
+
 
 

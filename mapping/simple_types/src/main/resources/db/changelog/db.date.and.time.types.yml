@@ -1,0 +1,47 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 4
+      author: asokolov
+      changes:
+        - createTable:
+            tableName: date_time_types
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+
+              - column:
+                  name: local_date_time
+                  type: datetime
+              - column:
+                  name: local_date
+                  type: date
+              - column:
+                  name: local_time
+                  type: time
+
+              - column:
+                  name: instant_field
+                  type: datetime
+              - column:
+                  name: offset_date_time
+                  type: datetime
+              - column:
+                  name: zoned_date_time
+                  type: datetime
+
+              - column:
+                  name: java_date
+                  type: datetime
+              - column:
+                  name: java_only_date
+                  type: date
+              - column:
+                  name: sql_date
+                  type: date
+              - column:
+                  name: sql_timestamp
+                  type: timestamp

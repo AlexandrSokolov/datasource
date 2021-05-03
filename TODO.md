@@ -4,8 +4,6 @@ See also:
 [Hibernate types](https://vladmihalcea.com/a-beginners-guide-to-hibernate-types/)
 [Data types mapping in Liquibase](https://dba-presents.com/index.php/liquibase/216-liquibase-3-6-x-data-types-mapping-table)
 
-- String types
-- [Date time types](https://www.w3schools.com/java/java_date.asp)
 - [Enums](https://dev.mysql.com/doc/refman/8.0/en/enum.html)
 - [Set types](https://dev.mysql.com/doc/refman/8.0/en/set.html)
 - Files
