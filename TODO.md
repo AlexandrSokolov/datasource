@@ -1,9 +1,15 @@
 #### Mapping
+lazy Fetching
+lazy loading, deferred loading, lazy fetching,
+on-demand fetching, just-in-time reading, indirection, and others.
+
+documents on DurationConverter
 
 See also: 
 [Hibernate types](https://vladmihalcea.com/a-beginners-guide-to-hibernate-types/)
 [Data types mapping in Liquibase](https://dba-presents.com/index.php/liquibase/216-liquibase-3-6-x-data-types-mapping-table)
 
+- What is the use of the @Temporal annotation in Hibernate?](https://stackoverflow.com/questions/25333711/what-is-the-use-of-the-temporal-annotation-in-hibernate)
 - [Enums](https://dev.mysql.com/doc/refman/8.0/en/enum.html)
 - [Set types](https://dev.mysql.com/doc/refman/8.0/en/set.html)
 - Files
@@ -16,8 +22,22 @@ utility methods, `No need to mark utility methods as @Transient`
 
 [Hibernate Validator](https://docs.jboss.org/hibernate/validator/3.1/reference/en/html_single/)
 
+
+- [How to fix “wrong column type encountered” schema-validation errors with JPA and Hibernate](https://vladmihalcea.com/how-to-fix-wrong-column-type-encountered-schema-validation-errors-with-jpa-and-hibernate/)
+
 - change schema validation for a single field, without `columnDefinition`: 
   see [Hibernate database specific columnDefinition values](https://stackoverflow.com/questions/1944660/hibernate-database-specific-columndefinition-values)
+- [TODO](https://stackoverflow.com/questions/56863906/hibernate-throwing-validation-exception-wrong-column-type-encountered-in-column)
+- [5 Things You Need to Know When Using Hibernate with Mysql](https://thorben-janssen.com/5-things-you-need-to-know-when-using-hibernate-with-mysql/)
+
+https://thorben-janssen.com/hibernate-tips-whats-the-difference-between-column-nullable-false-and-notnull/
+https://www.baeldung.com/hibernate-notnull-vs-nullable
+
+[hibernate](https://docs.jboss.org/hibernate/orm/5.0/mappingGuide/en-US/html/ch03.html)
+
+https://www.baeldung.com/hibernate-types-library
+
+`AttributeConverter`
 
 #### Queries
 - [Joining](https://thorben-janssen.com/jpql)

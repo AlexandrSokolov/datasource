@@ -146,3 +146,54 @@ The JPA would provide you with a 3 columns table:
   That way people don't have to think, or decide that a value of 0 means null.
   
 See also: [Using wrapper or primitive types in the mapping](https://stackoverflow.com/questions/7506802/using-wrapper-integer-class-or-int-primitive-in-hibernate-mapping)
+
+##### 2.2 Date and Time Mappings
+
+Use new Java 8 date and time types: `java.time.LocalDateTime`, `java.time.LocalDate`, `java.time.LocalTime`.
+
+With old types for storing both date and time you can use:
+- `java.util.Date`/`java.util.Calendar`
+- `java.sql.Date`/`java.sql.Timestamp`
+
+With old types, if you want to store only date or time, but not both, you must use: `@Temporal(TemporalType.TIME)`:
+```java
+  @Column(name="java_only_time")
+  @Temporal(TemporalType.TIME)
+  private Date javaOnlyTime;
+```
+Note: `Calendar` does not support only `TIME`!
+
+##### 2.3 Timezones issue
+
+It is a good practice to set timezone explicitly when work with a datasource!
+
+If you configure url to the database explicitly, include time zone.
+
+Here is the configuration for WildFly and MySql server:
+
+`jdbc:mysql://some.host.com:3306/db_name?useUnicode=true;characterEncoding=utf8;characterResultSets=utf8;serverTimezone=Europe/Berlin`
+
+If you use standalone application you can set it with `hibernate.jdbc.time_zone`:
+```xml
+<persistence>
+    <persistence-unit name="my-persistence-unit">
+        ...
+        <properties>
+            <property name="hibernate.jdbc.time_zone" value="UTC"/>
+            ...
+        </properties>
+    </persistence-unit>
+</persistence>
+```
+
+Via the Spring Boot `application.properties` file:
+
+`spring.jpa.properties.hibernate.jdbc.time_zone=UTC`
+
+##### 2.4 Duration
+
+JPA 2.2 didn’t add support for java.time.Duration. You need a custom `javax.persistence.AttributeConverter` converter.
+
+See: 
+- [DurationConverter](simple_types/src/main/java/com/savdev/datasource/entities/converters/DurationConverter.java)
+- [JPA Tips: How to map a Duration attribute](https://thorben-janssen.com/jpa-tips-map-duration-attribute/)

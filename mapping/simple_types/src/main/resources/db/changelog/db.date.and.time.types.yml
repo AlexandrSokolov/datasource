@@ -22,6 +22,9 @@ databaseChangeLog:
               - column:
                   name: local_time
                   type: time
+              - column:
+                  name: duration
+                  type: bigint
 
               - column:
                   name: instant_field
@@ -34,11 +37,24 @@ databaseChangeLog:
                   type: datetime
 
               - column:
+                  name: calendar_field
+                  type: datetime
+              - column:
+                  name: calendar_date_field
+                  type: date
+#              calendar does not support time only!
+#              - column:
+#                  name: calendar_time_field
+#                  type: time
+              - column:
                   name: java_date
                   type: datetime
               - column:
                   name: java_only_date
                   type: date
+              - column:
+                  name: java_only_time
+                  type: time
               - column:
                   name: sql_date
                   type: date

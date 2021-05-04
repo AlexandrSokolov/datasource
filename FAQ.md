@@ -45,6 +45,8 @@ public class MixedAccess {
 }
 ```
 - [primitive vs wrappers in the mapping?](mapping/README.md#21-primitive-types-vs-wrapper-types)
+- [Date and Time Mappings](mapping/README.md#22-date-and-time-mappings)
+- [Timezones issue](mapping/README.md#23-timezones-issue)
   
 - Types of queries
 - Possible issues with SQL queries.
