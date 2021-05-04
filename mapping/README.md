@@ -191,8 +191,12 @@ You need to use streams and define a mapping as `java.sql.Blob`/`java.sql.Clob`:
 See [LargeObjectsEntityTest](simple_types/src/test/java/com/savdev/datasource/entities/LargeObjectsEntityTest.java)
 
 TODO: the topic is quire complicated. The current not resolved issues:
+- https://stackoverflow.com/questions/3677380/proper-hibernate-annotation-for-byte
 - Writing, reading clobs, blobs without hibernate
+  https://stackoverflow.com/questions/6278894/how-to-create-a-java-sql-blob-object-in-java-se-1-5-0-with-a-byte-input
 - Writing, reading clobs, blobs with hibernate
+  Blob data = getSession().getLobHelper().createBlob(fis, file.length());
+  https://stackoverflow.com/questions/20614973/read-write-blob-data-in-chunks-with-hibernate
 - Try to use InputStream directly in the entity, reusable input stream!!!
 - Mysql has 4 different types for blobs: TINYBLOB, BLOB, MEDIUMBLOB, LONGBLOB
   See 
@@ -206,7 +210,7 @@ TODO: the topic is quire complicated. The current not resolved issues:
 ```
   See also a validation topic:
   https://stackoverflow.com/questions/67383238/schema-validation-for-java-sql-blob-the-right-expected-but-a-wrong-found-type
--
+- see also http://www.java2s.com/Questions_And_Answers/JPA/Data-Type/InputStream.htm
 
 ### 3 Timezones issue
 

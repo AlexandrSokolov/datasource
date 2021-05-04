@@ -22,6 +22,7 @@ utility methods, `No need to mark utility methods as @Transient`
 
 
 - [How to fix “wrong column type encountered” schema-validation errors with JPA and Hibernate](https://vladmihalcea.com/how-to-fix-wrong-column-type-encountered-schema-validation-errors-with-jpa-and-hibernate/)
+ with overwriting: [dialect](https://stackoverflow.com/questions/16891570/hibernate-validation-issue-for-blob-sql-type)
 
 - change schema validation for a single field, without `columnDefinition`: 
   see [Hibernate database specific columnDefinition values](https://stackoverflow.com/questions/1944660/hibernate-database-specific-columndefinition-values)
