@@ -1,7 +1,5 @@
 #### Mapping
-lazy Fetching
-lazy loading, deferred loading, lazy fetching,
-on-demand fetching, just-in-time reading, indirection, and others.
+
 
 documents on DurationConverter
 
@@ -13,7 +11,7 @@ See also:
 - [Enums](https://dev.mysql.com/doc/refman/8.0/en/enum.html)
 - [Set types](https://dev.mysql.com/doc/refman/8.0/en/set.html)
 - Files
-- Lazy
+- [custom hibernate dialect for validation](https://stackoverflow.com/questions/43093799/hibernate-database-schema-validation-fails-for-h2-database-when-entity-contains)
 - Transient state
 [FetchTypes](https://thorben-janssen.com/entity-mappings-introduction-jpa-fetchtypes/)
 [equals() and hashCode() with Hibernate](https://thorben-janssen.com/ultimate-guide-to-implementing-equals-and-hashcode-with-hibernate/)
@@ -37,6 +35,7 @@ https://www.baeldung.com/hibernate-notnull-vs-nullable
 
 https://www.baeldung.com/hibernate-types-library
 
+Issue with lazy Fetching
 `AttributeConverter`
 
 #### Queries

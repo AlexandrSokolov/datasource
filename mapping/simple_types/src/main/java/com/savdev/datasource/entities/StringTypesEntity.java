@@ -1,7 +1,9 @@
 package com.savdev.datasource.entities;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
@@ -33,6 +35,7 @@ public class StringTypesEntity {
   //liquibase type: clob
   // without `@Lob` you get org.hibernate.tool.schema.spi.SchemaManagementException validation exception:
   // `found [longtext (Types#LONGVARCHAR)], but expecting [varchar(255) (Types#VARCHAR)]`
+  @Basic(fetch= FetchType.LAZY)
   @Column(name="clob_field")
   @Lob
   private String clobField;

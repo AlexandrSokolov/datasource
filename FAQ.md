@@ -46,7 +46,11 @@ public class MixedAccess {
 ```
 - [primitive vs wrappers in the mapping?](mapping/README.md#21-primitive-types-vs-wrapper-types)
 - [Date and Time Mappings](mapping/README.md#22-date-and-time-mappings)
-- [Timezones issue](mapping/README.md#23-timezones-issue)
+- [Time duration](mapping/README.md#23-duration)
+- [Large objects mapping](mapping/README.md#24-large-objects)
+- [Timezones issue](mapping/README.md#3-timezones-issue)
+- [Lazy Fetching](mapping/README.md#41-lazy-fetching)
+- [Issue with lazy Fetching](mapping/README.md#42-lazy-loading-and-detachment)
   
 - Types of queries
 - Possible issues with SQL queries.

@@ -163,7 +163,52 @@ With old types, if you want to store only date or time, but not both, you must u
 ```
 Note: `Calendar` does not support only `TIME`!
 
-##### 2.3 Timezones issue
+##### 2.3 Duration
+
+JPA 2.2 didn’t add support for java.time.Duration. You need a custom `javax.persistence.AttributeConverter` converter.
+
+See: 
+- [DurationConverter](simple_types/src/main/java/com/savdev/datasource/entities/converters/DurationConverter.java)
+- [JPA Tips: How to map a Duration attribute](https://thorben-janssen.com/jpa-tips-map-duration-attribute/)
+
+##### 2.4 Large Objects
+
+You might get `OutOfMemoryException` when you map your files as:
+```java
+  @Basic(fetch= FetchType.LAZY)
+  @Lob
+  @Column(name="picture")
+  private byte[] picture;
+```
+
+You need to use streams and define a mapping as `java.sql.Blob`/`java.sql.Clob`:
+```java
+  @Basic(fetch= FetchType.LAZY)
+  @Lob
+  private Clob clob;
+```
+
+See [LargeObjectsEntityTest](simple_types/src/test/java/com/savdev/datasource/entities/LargeObjectsEntityTest.java)
+
+TODO: the topic is quire complicated. The current not resolved issues:
+- Writing, reading clobs, blobs without hibernate
+- Writing, reading clobs, blobs with hibernate
+- Try to use InputStream directly in the entity, reusable input stream!!!
+- Mysql has 4 different types for blobs: TINYBLOB, BLOB, MEDIUMBLOB, LONGBLOB
+  See 
+  https://www.tutorialspoint.com/What-is-the-maximum-length-of-data-we-can-put-in-a-BLOB-column-in-MySQL
+  https://stackoverflow.com/questions/3503841/jpa-mysql-blob-returns-data-too-long
+```text
+       0 < length <=      255  -->  `TINYBLOB`
+     255 < length <=    65535  -->  `BLOB`
+   65535 < length <= 16777215  -->  `MEDIUMBLOB`
+16777215 < length <=    2³¹-1  -->  `LONGBLOB`
+```
+  See also a validation topic:
+  https://stackoverflow.com/questions/67383238/schema-validation-for-java-sql-blob-the-right-expected-but-a-wrong-found-type
+-
+
+### 3 Timezones issue
 
 It is a good practice to set timezone explicitly when work with a datasource!
 
@@ -190,10 +235,41 @@ Via the Spring Boot `application.properties` file:
 
 `spring.jpa.properties.hibernate.jdbc.time_zone=UTC`
 
-##### 2.4 Duration
+### 4 Fetching strategies
 
-JPA 2.2 didn’t add support for java.time.Duration. You need a custom `javax.persistence.AttributeConverter` converter.
+##### 4.1 Lazy Fetching
 
-See: 
-- [DurationConverter](simple_types/src/main/java/com/savdev/datasource/entities/converters/DurationConverter.java)
-- [JPA Tips: How to map a Duration attribute](https://thorben-janssen.com/jpa-tips-map-duration-attribute/)
+- lazy fetching
+- lazy loading
+- deferred loading
+- on-demand fetching
+- just-in-time reading
+- indirection
+
+They all mean pretty much the same thing, 
+which is just that some data might not be loaded when the object is initially read from the database, 
+but will be fetched only when referenced or accessed.
+
+The only times when lazy loading of a basic mapping should be considered are:
+- when there are many columns in a table (for example, dozens or hundreds) or 
+- when the columns are large (for example, very large character strings or byte strings). 
+  
+It could take significant resources to load the data, 
+and not loading it could save quite a lot of effort, time, and resources. 
+**Unless either of these two cases is true, in the majority of cases 
+lazily fetching a subset of object attributes will end up being more expensive than eagerly fetching them.**
+
+By default `EAGER` fetching is used for a basic mapping. To overwrite it:
+
+```java
+  @Basic(fetch= FetchType.LAZY)
+  @Column(name="clob_field")
+  @Lob
+  private String clobField;
+```
+
+##### 4.2 Lazy loading and detachment
+You must understand the connection between lazy loading and detachment. 
+
+TODO
+
