@@ -1,3 +1,11 @@
+
+- [Usage](#usage)
+- [Requirements](#requirements)
+- [Logging](#logging)
+- [Docker container configuration](#mysql-container-configuration)
+
+#### Usage
+
 To use in maven module, add the following dependency:
 ```xml
 <dependencies>
@@ -30,7 +38,9 @@ Extend your test class from `MySqlLiquibaseBaseIT`:
 public class ExampleEntityIT extends MySqlLiquibaseBaseIT {}
 ```
 
-Requirement: in the parent `pom.xml` you must configure `maven-jar-plugin` with `test-jar` goal:
+#### Requirements
+
+In the parent `pom.xml` you must configure `maven-jar-plugin` with `test-jar` goal:
 ```xml
   <build>
     <pluginManagement>
@@ -51,3 +61,33 @@ Requirement: in the parent `pom.xml` you must configure `maven-jar-plugin` with 
     </pluginManagement>
   </build>
 ```
+
+#### Logging
+
+The following logging levels are supported:
+- enabled with `@DataJpaTest`, you see how container is created, liquibase logging, JPA logging
+- `MySQLContainer` is created with `withLogConsumer` invocation. It includes docker container default logs.
+- sql statements logs. Real sql statements which are sent to the database server. 
+  You can find them in `~/var/log/it/mysql` folder. It is bound via `withFileSystemBind`:
+```java
+  @Container
+  public static MySQLContainer<?> mysql = new MySQLContainer<>(
+    DockerImageName
+      .parse(MySQLContainer.NAME)
+      ...
+      .withFileSystemBind(DOCKER_HOST_LOGS_PATH, DOCKER_MYSQL_LOGS_PATH, BindMode.READ_WRITE);
+```
+  
+#### MySql Container configuration
+
+[`my.test.cnf`](src/test/resources/my.test.cnf) is copied to the MySql container via `withCopyFileToContainer`:
+```java
+  @Container
+  public static MySQLContainer<?> mysql = new MySQLContainer<>(
+    DockerImageName
+      .parse(MySQLContainer.NAME)
+      ...
+      .withCopyFileToContainer(MountableFile
+        .forClasspathResource(MY_CONF), DOCKER_CONF_PATH)
+```
+

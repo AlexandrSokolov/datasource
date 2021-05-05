@@ -10,7 +10,6 @@ See also:
 - What is the use of the @Temporal annotation in Hibernate?](https://stackoverflow.com/questions/25333711/what-is-the-use-of-the-temporal-annotation-in-hibernate)
 - [Enums](https://dev.mysql.com/doc/refman/8.0/en/enum.html)
 - [Set types](https://dev.mysql.com/doc/refman/8.0/en/set.html)
-- Files
 - [custom hibernate dialect for validation](https://stackoverflow.com/questions/43093799/hibernate-database-schema-validation-fails-for-h2-database-when-entity-contains)
 - Transient state
 [FetchTypes](https://thorben-janssen.com/entity-mappings-introduction-jpa-fetchtypes/)
@@ -38,6 +37,10 @@ https://www.baeldung.com/hibernate-types-library
 
 Issue with lazy Fetching
 `AttributeConverter`
+
+
+- Files, write tests for all cases, add InputStream field, if it is possible
+- write tests for `@Temporal(TemporalType.TIME)`
 
 #### Queries
 - [Joining](https://thorben-janssen.com/jpql)
@@ -146,13 +149,10 @@ So, native queries are prime candidates for integration tests
 
 #### Logging
 
-jpa/sql logging
-logging in containers (save logs on the permanennt folder)
 [Hibernate Logging Guide](https://thorben-janssen.com/hibernate-logging-guide/)
 
 #### Test mysql containers configuration
 
-configuration mysql for the container
 connecting to the running container, without starting/stopping it in test
 
 updating to use only: `TLSv1.2`:

@@ -8,6 +8,7 @@
 - [Datasource project with Liquibase/Spring for CDI/JEE environment](liquibase_cdi/spring_jpa)
 - [Testing with `@DataJpaTest`](#1-testing-with-datajpatest)
 - [Populating test data](#2-populating-test-data)
+- [Logging](../commons_test/README.md#Logging)
 - [Transaction management](#3-transaction-management-with-spring-it)
 - [(deprecated) Testing with `@ContextConfiguration`/`@Configuration`](#testing-with-contextconfigurationconfiguration)
 
@@ -30,7 +31,7 @@ Cause default behaviour of `@DataJpaTest` is not suitable and additionally you m
 
 Then it makes sense to extract a base class with all required annotations and configurations and inherit it in other ITs.
 
-See [BaseInitializerIT](liquibase_cdi/DataJpaTest/src/test/java/com/savdev/datasource/BaseInitializerIT.java)
+See [MySqlLiquibaseBaseIT](../commons_test/src/test/java/com/savdev/datasource/MySqlLiquibaseBaseIT.java)
 
 ##### 1.1. Test database choice
 
@@ -54,7 +55,7 @@ See [BaseInitializerIT](liquibase_cdi/DataJpaTest/src/test/java/com/savdev/datas
 ```java
 @ContextConfiguration(initializers = { BaseInitializerIT.Initializer.class })
 ```
-See [BaseInitializerIT](liquibase_cdi/DataJpaTest/src/test/java/com/savdev/datasource/BaseInitializerIT.java)
+See [MySqlLiquibaseBaseIT](../commons_test/src/test/java/com/savdev/datasource/MySqlLiquibaseBaseIT.java)
 
 ##### 1.2. Schema creation:
 
@@ -98,7 +99,7 @@ Similar to `Liquibase` with the only exception add dependency on:
 
 You can populate the database with:
 - [Sql statements](#21-perform-sql-statements-directly-per-classmethod)
-- [Sql files (DML)](#22-populate-test-data-from-sql-file)
+- [Sql files (DML)](#22-populate-test-data-from-sql-files)
 - [xml dataset, using DbUnit and Spring's `@DatabaseSetup`](#23-populate-with-xml-dataset-using-dbunit-and-springs-databasesetup)
 - [yml dataset, using DbUnit and `@DBRider`](#24-populate-with-yml-dataset-using-dbunit-and-dbrider)
 - [`EntityManager`](#25-populate-with-entitymanager)
