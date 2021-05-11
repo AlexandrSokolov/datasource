@@ -42,6 +42,8 @@ Issue with lazy Fetching
 - Files, write tests for all cases, add InputStream field, if it is possible
 - write tests for `@Temporal(TemporalType.TIME)`
 
+- [Mappings: Read-only Views](https://thorben-janssen.com/5-things-you-need-to-know-when-using-hibernate-with-mysql/#3_Mappings_Read-only_Views)
+
 #### Queries
 - [Joining](https://thorben-janssen.com/jpql)
   JP QL supports multiple join types, including 
@@ -188,6 +190,25 @@ jpa entity with all constraints inlcuded
 table adoption - adding, removing new fields
 renaming fields
 adopting field type, when it is possible
+```yaml
+databaseChangeLog:
+
+  - changeSet:
+      id: 3
+      author: asokolov
+      changes:
+        - addColumn:
+            tableName: example
+            columns:
+              - column:
+                  name:  another_name
+                  type:  varchar(20)
+        - renameColumn:
+            newColumnName:  name
+            oldColumnName:  old_name
+            columnDataType: varchar(1024)
+            tableName:  example
+```
 
 #### date time default triggers 
 See comments:
@@ -220,13 +241,8 @@ https://www.baeldung.com/spring-data-jpa-query-by-date
 [enhanced-sequence] -> [org.hibernate.id.enhanced.SequenceStyleGenerator]
 [enhanced-table] -> [org.hibernate.id.enhanced.TableGenerator]
 
-#### Update your generation project with:
-- switch to junit 5
-- integration test
-- with a single query type
-- with the best id generation strategy
-- entity with id, name and datetime
-- populating data
+https://stackoverflow.com/questions/10041938/how-to-choose-the-id-generation-strategy-when-using-jpa-and-hibernate
+https://www.baeldung.com/hibernate-identifiers
 
 #### hibernate custom validation:
 

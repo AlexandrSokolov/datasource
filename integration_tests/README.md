@@ -53,7 +53,7 @@ See [MySqlLiquibaseBaseIT](../commons_test/src/test/java/com/savdev/datasource/M
 ```
 - Configure the application context initializer with:
 ```java
-@ContextConfiguration(initializers = { BaseInitializerIT.Initializer.class })
+@ContextConfiguration(initializers = { MySqlLiquibaseBaseIT.Initializer.class })
 ```
 See [MySqlLiquibaseBaseIT](../commons_test/src/test/java/com/savdev/datasource/MySqlLiquibaseBaseIT.java)
 
@@ -192,7 +192,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
   DependencyInjectionTestExecutionListener.class,
   TransactionDbUnitTestExecutionListener.class
 })
-public class PopulatingWithDbUnitAndDatabaseSetupIT extends BaseInitializerIT {
+public class PopulatingWithDbUnitAndDatabaseSetupIT extends MySqlLiquibaseBaseIT {
 
   @Autowired
   private ExampleEntityRepository exampleEntityRepository;
@@ -242,7 +242,7 @@ import java.util.List;
 
 @DBRider
 @DBUnit(caseInsensitiveStrategy = Orthography.LOWERCASE)
-public class PopulatingWithDbUnitAndDBRiderIT extends BaseInitializerIT {
+public class PopulatingWithDbUnitAndDBRiderIT extends MySqlLiquibaseBaseIT {
 
   @Autowired
   private ExampleEntityRepository exampleEntityRepository;
@@ -262,7 +262,7 @@ public class PopulatingWithDbUnitAndDBRiderIT extends BaseInitializerIT {
 See [PopulatingWithEntityManagerIT](liquibase_cdi/DataJpaTest/src/test/java/com/savdev/datasource/PopulatingWithEntityManagerIT.java)
 
 ```java
-public class PopulatingWithEntityManagerIT extends BaseInitializerIT {
+public class PopulatingWithEntityManagerIT extends MySqlLiquibaseBaseIT {
 
   public static final long ENTITY_ID = 85L;
   public static final long SHARED_ID = 95L;

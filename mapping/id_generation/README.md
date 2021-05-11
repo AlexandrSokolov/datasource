@@ -23,7 +23,13 @@ Disadvantages: not very portable. MySql for instance does not support sequences.
 
 ### Id generation using sequences in case when database does not support sequences
 
-If sequence is not supported by database, the JPA provider will try to use a table named in the same way as a sequence:
+Note: the solution has the same problems as [id generation using a table](#id-generation-using-a-table)
+although, on Java `GenerationType.SEQUENCE` is used.
+
+See [How to replace the TABLE identifier generator with either SEQUENCE or IDENTITY in a portable way](https://vladmihalcea.com/how-to-replace-the-table-identifier-generator-with-either-sequence-or-identity-in-a-portable-way/)
+
+Hibernate uses `SequenceStyleGenerator` regardless of the database. 
+If a database does not support sequences, Hibernate emulates them using a `hibernate_sequence` table:
 ```java
 @Entity
 @Table(name = "sequence_id_via_table")
