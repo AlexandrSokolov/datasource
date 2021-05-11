@@ -1,0 +1,8 @@
+databaseChangeLog:
+
+  - include:
+      file: db/changelog/db.sequence.id.via.table.yml
+
+
+
+

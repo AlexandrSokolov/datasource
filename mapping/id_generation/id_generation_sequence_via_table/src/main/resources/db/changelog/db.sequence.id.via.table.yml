@@ -1,0 +1,31 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 1
+      author: asokolov
+      changes:
+
+        - createTable:
+            tableName: hibernate_sequence
+            columns:
+              - column:
+                  name: next_val
+                  type: bigint
+        - insert:
+            tableName: hibernate_sequence
+            columns:
+              - column:
+                  name: next_val
+                  value: 1
+
+        - createTable:
+            tableName: sequence_id_via_table
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(512)

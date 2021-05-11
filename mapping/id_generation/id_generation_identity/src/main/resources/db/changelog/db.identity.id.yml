@@ -1,0 +1,18 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 1
+      author: asokolov
+      changes:
+        - createTable:
+            tableName: identity_id
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(512)

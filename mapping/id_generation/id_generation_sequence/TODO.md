@@ -1,0 +1,1 @@
+We need to add IT with a database, other than MySql that has native support of database sequences.

@@ -76,6 +76,9 @@ Issue with lazy Fetching
   updates and inserts
   [Modifying Queries](https://thorben-janssen.com/spring-data-jpa-query-annotation/)
   [insert](https://www.baeldung.com/jpa-insert)
+  [How to batch INSERT and UPDATE statements with Hibernate](https://vladmihalcea.com/how-to-batch-insert-and-update-statements-with-hibernate/)
+  [Spring Data JPA Batch Inserts](https://www.baeldung.com/spring-data-jpa-batch-inserts)
+  [No matter what, I can't batch MySQL INSERT statements in Hibernate](https://stackoverflow.com/questions/21530112/no-matter-what-i-cant-batch-mysql-insert-statements-in-hibernate)
 - [Dynamic queries (JPA Criteria API)](https://www.baeldung.com/spring-data-jpa-query)
   [Combining JPA And/Or Criteria Predicates](https://www.baeldung.com/jpa-and-or-criteria-predicates)
   [Criteria](https://www.baeldung.com/spring-data-criteria-queries)
@@ -149,6 +152,8 @@ So, native queries are prime candidates for integration tests
 
 #### Logging
 
+See the comment about MySQL's `profileSQL` parameter in connection url:
+[No matter what, I can't batch MySQL INSERT statements in Hibernate](https://stackoverflow.com/questions/21530112/no-matter-what-i-cant-batch-mysql-insert-statements-in-hibernate)
 [Hibernate Logging Guide](https://thorben-janssen.com/hibernate-logging-guide/)
 
 #### Test mysql containers configuration

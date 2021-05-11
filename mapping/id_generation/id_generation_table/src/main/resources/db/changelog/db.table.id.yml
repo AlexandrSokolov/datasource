@@ -1,0 +1,28 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 1
+      author: asokolov
+      changes:
+
+        - createTable:
+            tableName: id_gen
+            columns:
+              - column:
+                  name: gen_name
+                  type: varchar(512)
+              - column:
+                  name: gen_value
+                  type: bigint
+
+        - createTable:
+            tableName: table_id
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(512)

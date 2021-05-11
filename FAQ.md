@@ -1,4 +1,5 @@
 
+- [ID generation strategies](mapping/id_generation/README.md)
 - [Entity access options](mapping/README.md#1-accessing-entity-state)
 - [What if an entity subclass is added to an existing hierarchy that uses a different access type?](mapping/README.md#13-mixed-access)
 - [What if you need to perform a simple transformation to the data when reading from or writing to the database?](mapping/README.md#13-mixed-access)
