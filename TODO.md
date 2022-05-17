@@ -1,5 +1,137 @@
 #### Mapping
 
+Enums with the generated spring jpa repository:
+https://stackoverflow.com/questions/2751733/map-enum-in-jpa-with-fixed-values
+https://www.baeldung.com/jpa-persisting-enums-in-jpa
+
+```java
+@Entity
+@Table(name = TABLE_NAME)
+@IdClass(TimelineKey.class)
+public class TimelineEntity {
+
+  public interface Persistence {
+    String TABLE_NAME = "timelines";
+  }
+
+  @Id
+  @Column(name = "node_id")
+  private Long nodeId;
+
+  @Id
+  @Column(name = "timeline_id")
+  private Long timelineId;
+
+  @Column(name = "ho_timeline_type")
+  private Integer hoTimelineTypeValue;
+
+  @Transient
+  private HoTimelineType hoTimelineType;
+
+  @Column(name="last_updated")
+  private LocalDateTime lastUpdated;
+
+  public Long getNodeId() {
+    return nodeId;
+  }
+
+  public void setNodeId(Long nodeId) {
+    this.nodeId = nodeId;
+  }
+
+  public Long getTimelineId() {
+    return timelineId;
+  }
+
+  public void setTimelineId(Long timelineId) {
+    this.timelineId = timelineId;
+  }
+
+  public HoTimelineType getHoTimelineType() {
+    if (!Optional.ofNullable(hoTimelineType).isPresent()
+      && Optional.ofNullable(hoTimelineTypeValue).isPresent()) {
+      this.hoTimelineType = HoTimelineType.of(this.hoTimelineTypeValue);
+    }
+    return this.hoTimelineType;
+  }
+
+  public void setHoTimelineType(HoTimelineType hoTimelineType) {
+    this.hoTimelineType = hoTimelineType;
+    //special workaround for
+    // https://stackoverflow.com/questions/72232842/saving-entity-with-spring-jpa-repository-resets-enum-ttype-value
+    this.setHoTimelineTypeValue(hoTimelineType.getValue());
+  }
+
+  public Integer getHoTimelineTypeValue() {
+    if (!Optional.ofNullable(hoTimelineTypeValue).isPresent()
+      && Optional.ofNullable(hoTimelineType).isPresent()) {
+      this.hoTimelineTypeValue = this.hoTimelineType.getValue();
+    }
+    return hoTimelineTypeValue;
+  }
+
+  public void setHoTimelineTypeValue(Integer hoTimelineTypeValue) {
+    this.hoTimelineTypeValue = hoTimelineTypeValue;
+  }
+
+  public LocalDateTime getLastUpdated() {
+    return lastUpdated;
+  }
+
+  public void setLastUpdated(LocalDateTime lastUpdated) {
+    this.lastUpdated = lastUpdated;
+  }
+
+  @PostLoad
+  private void postLoad() {
+    this.hoTimelineType = HoTimelineType.of(hoTimelineTypeValue);
+  }
+
+  @PrePersist
+  private void prePersist() {
+    this.lastUpdated = LocalDateTime.now();
+    Optional.ofNullable(hoTimelineType)
+      .ifPresent(hoType -> this.hoTimelineTypeValue = hoType.getValue());
+  }
+
+  @PreUpdate
+  private void preUpdate() {
+    this.lastUpdated = LocalDateTime.now();
+  }
+}
+
+@DBRider
+@DBUnit(caseInsensitiveStrategy = Orthography.LOWERCASE)
+public class TimelineEntityRepositoryIT extends MySqlLiquibaseBaseIT {
+
+  @Autowired
+  private TimelineEntityRepository timelineEntityRepository;
+
+  @Test
+  @DataSet("timelines.yml")
+  public void testFindByNodeId() {
+    TimelineEntity newTE = new TimelineEntity();
+    newTE.setNodeId(10L);
+    newTE.setTimelineId(22L);
+    newTE.setHoTimelineType(HoTimelineType.FOLLOW_UP_SUMMARY);
+
+    newTE = timelineEntityRepository.save(newTE);
+
+    List<TimelineEntity> timelines = timelineEntityRepository.findByNodeId(10L);
+    Assertions.assertEquals(4, timelines.size()); //3 from file, one from test method
+
+    timelineEntityRepository.delete(newTE);
+
+    timelines = timelineEntityRepository.findByNodeId(10L);
+    Assertions.assertEquals(3, timelines.size());
+
+    TimelineEntity first = timelines.get(0);
+    Assertions.assertNotNull(first);
+    Assertions.assertEquals(110, first.getTimelineId());
+  }
+}
+```
+
 
 documents on DurationConverter
 
