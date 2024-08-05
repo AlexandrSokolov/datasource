@@ -1,3 +1,12 @@
+### sequence id generation on mysql with hibernate 6
+
+Mysql does not support sequence by nature. The sequence table is used.
+
+As of 6.0, Hibernate by default creates a sequence per entity hierarchy instead of a single sequence `hibernate_sequence`.
+For an entity `Person`, a sequence `person_seq` is expected to exist.
+
+So just rename a shared `hibernate_sequence` into `person_seq`, `item_seq` etc. for Hibernate 6
+
 #### partioal entity update
 
 https://www.baeldung.com/spring-data-partial-update
