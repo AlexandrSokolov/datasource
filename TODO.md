@@ -1,3 +1,30 @@
+#### partioal entity update
+
+https://www.baeldung.com/spring-data-partial-update
+https://vladmihalcea.com/how-to-optimize-the-merge-operation-using-update-while-batching-with-jpa-and-hibernate/
+https://www.baeldung.com/hibernate-save-persist-update-merge-saveorupdate
+https://thorben-janssen.com/persist-save-merge-saveorupdate-whats-difference-one-use/
+https://vladmihalcea.com/jpa-persist-merge-hibernate-save-update-saveorupdate/
+https://www.linkedin.com/pulse/whats-difference-between-persist-save-merge-update-which-janssen
+https://www.baeldung.com/spring-data-jpa-update-or-insert
+
+###
+
+https://thorben-janssen.com/automatically-validate-entities-with-hibernate-validator/
+
+###
+
+Activate the 2nd level cache
+The 2nd level cache, which is defined by the JPA specification, is one of the bigger topics in my Hibernate Performance Tuning Online Training.
+
+###
+
+      <!--  Specify Validation Groups -->
+      <property name="jakarta.persistence.validation.group.pre-persist" value="jakarta.validation.groups.MyPersistValidation"/>
+      <property name="jakarta.persistence.validation.group.pre-update" value="jakarta.validation.groups.MyUpdateValidation"/>
+      <property name="jakarta.persistence.validation.group.pre-remove" value="jakarta.validation.groups.MyRemovetValidation"/>
+
+
 #### Mapping
 
 Enums with the generated spring jpa repository:
