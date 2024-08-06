@@ -1,10 +1,15 @@
-
-**Spring documentation:**
+### Spring documentation:
 - [Integration testing with the spring framework](https://docs.spring.io/spring-framework/docs/current/reference/html/testing.html#integration-testing)
 - [Test Auto-configuration Annotations](https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-test-auto-configuration.html)
 - [Spring Boot Reference Documentation](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)
 
-**Features:**
+### Project structure:
+
+* [Db project with Jpa entities, Spring Data Jpa repositories and Liquibase for schema creation](liquibase_cdi/spring_jpa)
+* [(recommended) Integration tests based on Spring's `@DataJpaTest`](liquibase_cdi/DataJpaTest)
+* [Integration tests based on Spring's `@ContextConfiguration`/`@Configuration`](liquibase_cdi/ContextConfiguration)
+
+### Features:
 - [Datasource project with Liquibase/Spring for CDI/JEE environment](liquibase_cdi/spring_jpa)
 - [Testing with `@DataJpaTest`](#1-testing-with-datajpatest)
 - [Populating test data](#2-populating-test-data)
